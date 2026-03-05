@@ -1,34 +1,22 @@
-const CACHE_NAME = 'meteocosuenda-v1';
-const urlsToCache = [
-    './',
-    './index.html',
-    './style.css',
-    './script.js',
-    './manifest.json'
+const CACHE_NAME="meteo-cosuenda";
+
+const urlsToCache=[
+"/tiempo-cosuenda-/",
+"/tiempo-cosuenda-/index.html",
+"/tiempo-cosuenda-/style.css",
+"/tiempo-cosuenda-/script.js"
 ];
 
-// Instalar SW
-self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
-    );
+self.addEventListener("install",event=>{
+event.waitUntil(
+caches.open(CACHE_NAME)
+.then(cache=>cache.addAll(urlsToCache))
+);
 });
 
-// Activar SW y limpiar viejos caches
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(keys.map(key => {
-                if(key !== CACHE_NAME) return caches.delete(key);
-            }))
-        )
-    );
-});
-
-// Interceptar fetch
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-        .then(response => response || fetch(event.request))
-    );
+self.addEventListener("fetch",event=>{
+event.respondWith(
+caches.match(event.request)
+.then(response=>response||fetch(event.request))
+);
 });
