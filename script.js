@@ -41,8 +41,8 @@ document.getElementById("press").textContent=press.toFixed(1)+" hPa";
 document.getElementById("uv").textContent=uv;
 document.getElementById("solar").textContent=solar+" W/m²";
 
-document.getElementById("flechaViento").style.transform=
-`translate(-50%,-50%) rotate(${windDeg}deg)`;
+document.getElementById("flechaViento").style.transform =
+"translate(-50%,-100%) rotate(" + windDir + "deg)";
 
 const ahora=new Date();
 document.getElementById("ultimaActualizacion").textContent=
