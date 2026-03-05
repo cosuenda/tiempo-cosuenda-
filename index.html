@@ -8,6 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#001f3f">
 </head>
+
 <body>
 
 <header>
@@ -16,6 +17,7 @@
 </header>
 
 <div class="container">
+
 <div class="card">
 <h2>Temperatura</h2>
 <div id="tempBig" class="bigTemp">--</div>
@@ -23,14 +25,74 @@
 <div id="tempMin">Mínima diaria: --</div>
 <div id="tempMax">Máxima diaria: --</div>
 </div>
+
+<div class="card">
+<h2>Humedad</h2>
+<div id="hum" class="bigNumber">--</div>
 </div>
 
-<div id="ultimaActualizacion">Última actualización: --</div>
+<div class="card">
+<h2>Viento (km/h)</h2>
+<div id="windValue" class="bigNumber">--</div>
+<div id="windMax">Racha máxima diaria: --</div>
+<div id="windDirText">Dirección: --</div>
+
+<div class="rosa">
+  <div class="cardinal norte">N</div>
+  <div class="cardinal noreste">NE</div>
+  <div class="cardinal este">E</div>
+  <div class="cardinal sureste">SE</div>
+  <div class="cardinal sur">S</div>
+  <div class="cardinal suroeste">SW</div>
+  <div class="cardinal oeste">W</div>
+  <div class="cardinal noroeste">NW</div>
+
+  <div id="flechaViento" class="flecha"></div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>Lluvia</h2>
+<div class="rainBox">
+<div>
+<span class="rainLabel">Hoy</span>
+<div id="rain" class="bigNumber">--</div>
+</div>
+<div>
+<span class="rainLabel">Mensual</span>
+<div id="rainMonth" class="bigNumber">--</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Presión</h2>
+<div id="press" class="bigNumber">--</div>
+</div>
+
+<div class="card">
+<h2>Índice UV</h2>
+<div id="uv" class="bigNumber">--</div>
+</div>
+
+<div class="card">
+<h2>Radiación Solar</h2>
+<div id="solar" class="bigNumber">--</div>
+</div>
+
+</div>
+
+<div id="ultimaActualizacion">
+Última actualización: --
+</div>
 
 <script src="script.js"></script>
 <script>
 if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('sw.js')
+        .then(()=>console.log('Service Worker registrado'))
+        .catch(err=>console.log('Error SW', err));
 }
 </script>
 </body>
