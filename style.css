@@ -81,26 +81,39 @@ opacity:0.8;
 }
 /* ---------- ROSA DE LOS VIENTOS PROFESIONAL ---------- */
 
-.rosa::before{
-content:"";
-position:absolute;
-top:50%;
-left:50%;
-width:2px;
-height:180px;
-background:rgba(0,0,0,0.2);
-transform:translate(-50%,-50%);
+.wind-compass {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: auto;
 }
 
-.rosa::after{
-content:"";
-position:absolute;
-top:50%;
-left:50%;
-width:180px;
-height:2px;
-background:rgba(0,0,0,0.2);
-transform:translate(-50%,-50%);
+.compass-bg {
+    width: 100%;
+    height: 100%;
+}
+
+.wind-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 90px;
+    background: red;
+    transform-origin: 50% 90%;
+    transform: translate(-50%, -100%) rotate(0deg);
+    border-radius: 3px;
+}
+
+.wind-arrow::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid red;
 }
 
 /* círculo interior */
