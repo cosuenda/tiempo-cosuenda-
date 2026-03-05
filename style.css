@@ -46,16 +46,17 @@ border-radius:50%;
 margin:auto;
 background:white;
 }
-
 .flecha{
 position:absolute;
 width:6px;
-height:70px;
+height:75px;
 background:#003366;
 top:50%;
 left:50%;
-transform-origin:50% 90%;
-transform:translate(-50%,-50%);
+transform-origin:50% 100%;
+transform:translate(-50%, -100%) rotate(0deg);
+border-radius:3px;
+transition: transform 0.8s ease;
 }
 
 .cardinal{
