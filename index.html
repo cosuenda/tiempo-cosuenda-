@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meteo Cosuenda</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#001f3f">
+</head>
+<body>
+
+<header>
+<h1>🌤️ Meteo Cosuenda</h1>
+<p>Estación Meteorológica Profesional</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h2>Temperatura</h2>
+<div id="tempBig" class="bigTemp">--</div>
+<div id="sensacion">Sensación térmica: --</div>
+<div id="tempMin">Mínima diaria: --</div>
+<div id="tempMax">Máxima diaria: --</div>
+</div>
+</div>
+
+<div id="ultimaActualizacion">Última actualización: --</div>
+
+<script src="script.js"></script>
+<script>
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+</html>
