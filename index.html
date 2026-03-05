@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Meteo Cosuenda</title>
+
 <link rel="stylesheet" href="style.css">
+
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#001f3f">
+<meta name="theme-color" content="#1e3c72">
+
 </head>
 
 <body>
 
 <header>
-<h1>🌤️ Meteo Cosuenda</h1>
-<p>Estación Meteorológica Profesional</p>
+<h1>Meteo Cosuenda</h1>
 </header>
 
 <div class="container">
 
 <div class="card">
 <h2>Temperatura</h2>
-<div id="tempBig" class="bigTemp">--</div>
-<div id="sensacion">Sensación térmica: --</div>
-<div id="tempMin">Mínima diaria: --</div>
-<div id="tempMax">Máxima diaria: --</div>
+<div id="tempBig" class="bigTemp">--°</div>
+<p id="sensacion"></p>
+<p id="tempMin"></p>
+<p id="tempMax"></p>
 </div>
 
 <div class="card">
@@ -32,38 +36,33 @@
 </div>
 
 <div class="card">
-<h2>Viento (km/h)</h2>
+<h2>Viento</h2>
 <div id="windValue" class="bigNumber">--</div>
-<div id="windMax">Racha máxima diaria: --</div>
-<div id="windDirText">Dirección: --</div>
+<p id="windDirText"></p>
+<p id="windMax"></p>
 
 <div class="rosa">
-  <div class="cardinal norte">N</div>
-  <div class="cardinal noreste">NE</div>
-  <div class="cardinal este">E</div>
-  <div class="cardinal sureste">SE</div>
-  <div class="cardinal sur">S</div>
-  <div class="cardinal suroeste">SW</div>
-  <div class="cardinal oeste">W</div>
-  <div class="cardinal noroeste">NW</div>
 
-  <div id="flechaViento" class="flecha"></div>
+<div id="flechaViento" class="flecha"></div>
+
+<div class="cardinal norte">N</div>
+<div class="cardinal sur">S</div>
+<div class="cardinal este">E</div>
+<div class="cardinal oeste">W</div>
+
+<div class="cardinal noreste">NE</div>
+<div class="cardinal sureste">SE</div>
+<div class="cardinal suroeste">SW</div>
+<div class="cardinal noroeste">NW</div>
+
 </div>
 
 </div>
 
 <div class="card">
 <h2>Lluvia</h2>
-<div class="rainBox">
-<div>
-<span class="rainLabel">Hoy</span>
-<div id="rain" class="bigNumber">--</div>
-</div>
-<div>
-<span class="rainLabel">Mensual</span>
-<div id="rainMonth" class="bigNumber">--</div>
-</div>
-</div>
+<p>Hoy: <span id="rain">--</span></p>
+<p>Mes: <span id="rainMonth">--</span></p>
 </div>
 
 <div class="card">
@@ -72,28 +71,22 @@
 </div>
 
 <div class="card">
-<h2>Índice UV</h2>
-<div id="uv" class="bigNumber">--</div>
-</div>
-
-<div class="card">
-<h2>Radiación Solar</h2>
-<div id="solar" class="bigNumber">--</div>
+<h2>Radiación</h2>
+<p>UV: <span id="uv"></span></p>
+<p>Solar: <span id="solar"></span></p>
 </div>
 
 </div>
 
-<div id="ultimaActualizacion">
-Última actualización: --
-</div>
+<div id="ultimaActualizacion"></div>
 
 <script src="script.js"></script>
+
 <script>
-if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('sw.js')
-        .then(()=>console.log('Service Worker registrado'))
-        .catch(err=>console.log('Error SW', err));
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("sw.js");
 }
 </script>
+
 </body>
 </html>
