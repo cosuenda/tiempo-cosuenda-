@@ -1,103 +1,140 @@
 body{
-font-family: Arial, Helvetica, sans-serif;
-text-align:center;
-color:white;
 margin:0;
-padding:0;
-transition:background 1.5s;
+font-family:Arial;
+background:linear-gradient(to bottom,#1e3c72,#2a5298);
+color:white;
+text-align:center;
 }
 
-h1{
-margin-top:20px;
+header{
+padding:20px;
+background:#001f3f;
 }
 
-.panel{
-max-width:900px;
+.container{
+max-width:1100px;
 margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
 }
 
-.temp-box{
-margin-top:30px;
+.card{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:15px;
 }
 
-.temperatura{
-font-size:80px;
+.bigTemp{
+font-size:70px;
 font-weight:bold;
-text-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-.humedad{
-font-size:30px;
-margin-top:10px;
-}
-
-.viento-box{
-margin-top:40px;
-}
-
-.viento{
-font-size:50px;
-margin-top:20px;
+.bigNumber{
+font-size:40px;
+font-weight:bold;
 }
 
 .rosa{
 position:relative;
-width:220px;
-height:220px;
-margin:auto;
+width:180px;
+height:180px;
 border:3px solid white;
 border-radius:50%;
+margin:auto;
+background:white;
 }
-
 .flecha{
 position:absolute;
-width:4px;
-height:90px;
-background:red;
+width:6px;
+height:75px;
+background:#003366;
 top:50%;
 left:50%;
-transform-origin:50% 90%;
-transform:translate(-50%,-90%) rotate(0deg);
+transform-origin:50% 100%;
+transform:translate(-50%, -100%) rotate(0deg);
+border-radius:3px;
+transition: transform 0.8s ease;
 }
 
 .cardinal{
 position:absolute;
+color:#003366;
 font-weight:bold;
 }
 
-.norte{top:-20px;left:50%;transform:translateX(-50%);}
-.sur{bottom:-20px;left:50%;transform:translateX(-50%);}
-.este{right:-20px;top:50%;transform:translateY(-50%);}
-.oeste{left:-20px;top:50%;transform:translateY(-50%);}
+.norte{top:5%;left:50%;transform:translate(-50%,-50%)}
+.sur{bottom:5%;left:50%;transform:translate(-50%,50%)}
+.este{right:5%;top:50%;transform:translate(50%,-50%)}
+.oeste{left:5%;top:50%;transform:translate(-50%,-50%)}
 
-.noreste{top:10px;right:10px;}
-.sureste{bottom:10px;right:10px;}
-.suroeste{bottom:10px;left:10px;}
-.noroeste{top:10px;left:10px;}
+.noreste{top:15%;right:15%}
+.sureste{bottom:15%;right:15%}
+.suroeste{bottom:15%;left:15%}
+.noroeste{top:15%;left:15%}
 
-.extra{
-margin-top:40px;
-font-size:22px;
+#ultimaActualizacion{
+margin:20px;
+opacity:0.8;
+}
+/* ---------- ROSA DE LOS VIENTOS PROFESIONAL ---------- */
+
+.wind-compass {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: auto;
 }
 
-/* Fondo por temperatura */
-
-.bg-freezing{
-background:linear-gradient(#0f2027,#203a43,#2c5364);
+.compass-bg {
+    width: 100%;
+    height: 100%;
 }
 
-.bg-cold{
-background:linear-gradient(#1e3c72,#2a5298);
+.wind-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 90px;
+    background: red;
+    transform-origin: 50% 90%;
+    transform: translate(-50%, -100%) rotate(0deg);
+    border-radius: 3px;
 }
 
-.bg-mild{
-background:linear-gradient(#56ab2f,#a8e063);
+.wind-arrow::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid red;
 }
 
-.bg-warm{
-background:linear-gradient(#f7971e,#ffd200);
+/* círculo interior */
+
+.rosa{
+box-shadow:
+inset 0 0 10px rgba(0,0,0,0.2),
+0 0 10px rgba(0,0,0,0.2);
 }
 
-.bg-hot{
-background:linear-gradient(#ff512f,#dd2476);
+/* centro de la brújula */
+
+.flecha::after{
+content:"";
+position:absolute;
+bottom:-6px;
+left:50%;
+width:14px;
+height:14px;
+background:#003366;
+border-radius:50%;
+transform:translateX(-50%);
+box-shadow:0 0 5px rgba(0,0,0,0.4);
 }
