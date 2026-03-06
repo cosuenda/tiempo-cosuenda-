@@ -80,6 +80,7 @@ const rain=data.data.rainfall;
 const p=data.data.pressure;
 
 const tempC=fToC(o.temperature.value);
+cambiarFondo(tempC);  
 const feels=fToC(o.feels_like.value);
 const hum=parseFloat(o.humidity.value);
 
@@ -158,3 +159,32 @@ console.log("error",error);
 
 obtenerDatos();
 setInterval(obtenerDatos,300000);
+function cambiarFondo(temp){
+
+let color1,color2;
+
+if(temp <= 0){
+color1="#0f2027";
+color2="#203a43";
+}
+else if(temp <= 10){
+color1="#1e3c72";
+color2="#2a5298";
+}
+else if(temp <= 20){
+color1="#2980b9";
+color2="#6dd5fa";
+}
+else if(temp <= 30){
+color1="#ff9966";
+color2="#ff5e62";
+}
+else{
+color1="#ff512f";
+color2="#dd2476";
+}
+
+document.body.style.background =
+`linear-gradient(to bottom, ${color1}, ${color2})`;
+
+}
