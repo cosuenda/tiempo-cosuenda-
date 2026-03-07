@@ -80,6 +80,9 @@ let windMax=parseFloat(localStorage.getItem("windMax"));
 if(tempC<tempMin){tempMin=tempC;localStorage.setItem("tempMin",tempMin);}
 if(tempC>tempMax){tempMax=tempC;localStorage.setItem("tempMax",tempMax);}
 if(windGust>windMax){windMax=windGust;localStorage.setItem("windMax",windMax);}
+  
+// actualizar tarjeta de racha máxima
+document.getElementById("windMaxBig").textContent = windMax.toFixed(1) + " km/h";
 
 // HTML
 document.getElementById("tempBig").textContent=tempC.toFixed(1)+"°";
