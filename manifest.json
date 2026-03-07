@@ -6,17 +6,8 @@
 "background_color":"#1e3c72",
 "theme_color":"#1e3c72",
 "description":"Estación meteorológica en tiempo real de Cosuenda",
-
 "icons":[
-{
-"src":"icons/icon-192.png",
-"sizes":"192x192",
-"type":"image/png"
-},
-{
-"src":"icons/icon-512.png",
-"sizes":"512x512",
-"type":"image/png"
-}
+{"src":"icons/icon-192.png","sizes":"192x192","type":"image/png"},
+{"src":"icons/icon-512.png","sizes":"512x512","type":"image/png"}
 ]
 }
