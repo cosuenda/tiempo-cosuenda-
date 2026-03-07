@@ -68,13 +68,13 @@ header{
   font-size:70px;
 }
 
-.rainDry{
-  color:#cccccc;
-}
-
-.rainWet{
-  color:#4fc3ff;
-  text-shadow:0 0 10px rgba(79,195,255,0.7);
+/* =============================
+   Racha máxima de viento
+   ============================= */
+#windMaxBig {
+  font-size:55px; 
+  color:#ffcc00; 
+  text-shadow: 0 0 15px rgba(255,204,0,0.8);
 }
 
 /* =============================
