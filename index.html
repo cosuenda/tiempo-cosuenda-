@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -16,31 +17,43 @@
 
 </head>
 
-<body class="temp-bg">
+<body>
 
 <header>
 <h1>Meteo Cosuenda</h1>
+<div id="weatherIcon" class="weatherIcon">☀️</div>
 </header>
 
 <div class="container">
 
 <div class="card">
 <h2>Temperatura</h2>
+
 <div id="tempBig" class="bigTemp">--°</div>
+
 <p id="sensacion"></p>
+
 <p id="tempMin"></p>
 <p id="tempMax"></p>
+
 </div>
 
 <div class="card">
+
 <h2>Humedad</h2>
+
 <div id="hum" class="bigNumber">--</div>
+
 </div>
 
 <div class="card">
+
 <h2>Viento</h2>
+
 <div id="windValue" class="bigNumber">--</div>
+
 <p id="windDirText"></p>
+
 <p id="windMax"></p>
 
 <div class="rosa">
@@ -58,34 +71,51 @@
 <div class="cardinal noroeste">NW</div>
 
 </div>
+
 </div>
 
 <div class="card">
+
 <h2>Lluvia</h2>
+
 <p>Hoy</p>
+
 <div id="rain" class="rainBig">--</div>
+
 <p>Mes: <span id="rainMonth">--</span></p>
+
 </div>
 
 <div class="card">
+
 <h2>Presión</h2>
+
 <div id="press" class="bigNumber">--</div>
+
 </div>
 
 <div class="card">
+
 <h2>Radiación</h2>
+
 <p>UV: <span id="uv"></span></p>
+
 <p>Solar: <span id="solar"></span></p>
+
 </div>
 
 </div>
 
 <div class="card">
+
 <h2>Temperatura últimas horas</h2>
+
 <canvas id="grafTemp"></canvas>
+
 </div>
 
 <div class="card">
+
 <h2>Radar lluvia</h2>
 
 <iframe
@@ -102,9 +132,11 @@ frameborder="0">
 <script src="script.js"></script>
 
 <script>
+
 if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("sw.js");
 }
+
 </script>
 
 </body>
