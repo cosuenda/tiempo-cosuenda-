@@ -82,7 +82,10 @@ if(tempC>tempMax){tempMax=tempC;localStorage.setItem("tempMax",tempMax);}
 if(windGust>windMax){windMax=windGust;localStorage.setItem("windMax",windMax);}
   
 // actualizar tarjeta de racha máxima
-document.getElementById("windMaxBig").textContent = windMax.toFixed(1) + " km/h";
+const windMaxBig=document.getElementById("windMaxBig");
+if(windMaxBig){
+  windMaxBig.textContent=windMax.toFixed(1)+" km/h";
+}
 
 // HTML
 document.getElementById("tempBig").textContent=tempC.toFixed(1)+"°";
@@ -92,7 +95,10 @@ document.getElementById("tempMax").textContent="Máxima diaria: "+tempMax.toFixe
 document.getElementById("hum").textContent=hum+"%";
 document.getElementById("windValue").textContent=windKm.toFixed(1)+" km/h";
 document.getElementById("windDirText").textContent="Dirección "+gradosADireccion(windDeg);
-document.getElementById("windMax").textContent="Racha máxima diaria: "+windMax.toFixed(1)+" km/h";
+const windMaxText=document.getElementById("windMax");
+if(windMaxText){
+  windMaxText.textContent="Racha máxima diaria: "+windMax.toFixed(1)+" km/h";
+}
 document.getElementById("press").textContent=pressHpa.toFixed(1)+" hPa";
 document.getElementById("uv").textContent=uv;
 document.getElementById("solar").textContent=solar+" W/m²";
