@@ -20,21 +20,28 @@ return h.getFullYear()+"-"+(h.getMonth()+1)+"-"+h.getDate();
 
 // reset diario
 function comprobarCambioDia(){
+
 const hoy=hoyString();
 const guardado=localStorage.getItem("diaActual");
 
 if(guardado!==hoy){
+
 localStorage.setItem("diaActual",hoy);
 localStorage.setItem("tempMin","999");
 localStorage.setItem("tempMax","-999");
 localStorage.setItem("windMax","0");
+
 }
+
 }
 
 comprobarCambioDia();
 
-// grafica
+
+// HISTORIAL TEMPERATURA
 let historialTemp=JSON.parse(localStorage.getItem("histTemp")||"[]");
+
+let chart;
 
 function actualizarGrafica(temp){
 
@@ -45,17 +52,17 @@ historialTemp.shift();
 
 localStorage.setItem("histTemp",JSON.stringify(historialTemp));
 
+if(!chart){
+
 const ctx=document.getElementById("grafTemp");
 
-if(!ctx) return;
-
-new Chart(ctx,{
+chart=new Chart(ctx,{
 type:"line",
 data:{
 labels:historialTemp.map((_,i)=>i+"h"),
 datasets:[{
-label:"Temperatura",
-data:historialTemp
+data:historialTemp,
+tension:0.3
 }]
 },
 options:{
@@ -63,7 +70,17 @@ responsive:true,
 plugins:{legend:{display:false}}
 }
 });
+
+}else{
+
+chart.data.labels=historialTemp.map((_,i)=>i+"h");
+chart.data.datasets[0].data=historialTemp;
+chart.update();
+
 }
+
+}
+
 
 // obtener datos
 async function obtenerDatos(){
@@ -72,6 +89,7 @@ try{
 
 const response=await fetch(url);
 const data=await response.json();
+
 if(data.code!==0) return;
 
 const o=data.data.outdoor;
@@ -80,7 +98,6 @@ const rain=data.data.rainfall;
 const p=data.data.pressure;
 
 const tempC=fToC(o.temperature.value);
-cambiarFondo(tempC);  
 const feels=fToC(o.feels_like.value);
 const hum=parseFloat(o.humidity.value);
 
@@ -95,6 +112,11 @@ const pressHpa=inHgToHpa(p.relative.value);
 
 const uv=data.data.solar_and_uvi.uvi.value;
 const solar=data.data.solar_and_uvi.solar.value;
+
+
+// fondo temperatura
+cambiarFondo(tempC);
+
 
 // min max
 let tempMin=parseFloat(localStorage.getItem("tempMin"));
@@ -116,66 +138,100 @@ windMax=windGust;
 localStorage.setItem("windMax",windMax);
 }
 
-// actualizar html
-document.getElementById("tempBig").textContent=tempC.toFixed(1)+"°";
-document.getElementById("sensacion").textContent="Sensación térmica: "+feels.toFixed(1)+"°";
 
-document.getElementById("tempMin").textContent="Mínima diaria: "+tempMin.toFixed(1)+"°";
-document.getElementById("tempMax").textContent="Máxima diaria: "+tempMax.toFixed(1)+"°";
+// actualizar html
+
+document.getElementById("tempBig").textContent=tempC.toFixed(1)+"°";
+
+document.getElementById("sensacion").textContent=
+"Sensación térmica: "+feels.toFixed(1)+"°";
+
+document.getElementById("tempMin").textContent=
+"Mínima diaria: "+tempMin.toFixed(1)+"°";
+
+document.getElementById("tempMax").textContent=
+"Máxima diaria: "+tempMax.toFixed(1)+"°";
 
 document.getElementById("hum").textContent=hum+"%";
 
-document.getElementById("windValue").textContent=windKm.toFixed(1)+" km/h";
-document.getElementById("windDirText").textContent="Dirección: "+gradosADireccion(windDeg);
-document.getElementById("windMax").textContent="Racha máxima diaria: "+windMax.toFixed(1)+" km/h";
+document.getElementById("windValue").textContent=
+windKm.toFixed(1)+" km/h";
 
-document.getElementById("rain").textContent=rainMm.toFixed(1)+" mm";
-document.getElementById("rainMonth").textContent=rainMonthMm.toFixed(1)+" mm";
+document.getElementById("windDirText").textContent=
+"Dirección: "+gradosADireccion(windDeg);
 
-document.getElementById("press").textContent=pressHpa.toFixed(1)+" hPa";
+document.getElementById("windMax").textContent=
+"Racha máxima diaria: "+windMax.toFixed(1)+" km/h";
+
+document.getElementById("rain").textContent=
+rainMm.toFixed(1)+" mm";
+
+document.getElementById("rainMonth").textContent=
+rainMonthMm.toFixed(1)+" mm";
+
+document.getElementById("press").textContent=
+pressHpa.toFixed(1)+" hPa";
 
 document.getElementById("uv").textContent=uv;
-document.getElementById("solar").textContent=solar+" W/m²";
 
-// flecha viento
+document.getElementById("solar").textContent=
+solar+" W/m²";
+
+
+// flecha viento (centrada)
+
 document.getElementById("flechaViento").style.transform =
-`translate(-50%,-90%) rotate(${windDeg}deg)`;
+`translate(-50%, -100%) rotate(${windDeg}deg)`;
+
 
 // grafica
+
 actualizarGrafica(tempC);
 
+
 // hora
+
 const ahora=new Date();
 
 document.getElementById("ultimaActualizacion").textContent =
-"Última actualización "+ahora.getHours()+":"+
+"Última actualización "+
+ahora.getHours()+":"+
 String(ahora.getMinutes()).padStart(2,"0");
 
+
 }catch(error){
+
 console.log("error",error);
+
 }
 
 }
+
 
 obtenerDatos();
+
 setInterval(obtenerDatos,300000);
+
+
+// fondo temperatura
+
 function cambiarFondo(temp){
 
 let color1,color2;
 
-if(temp <= 0){
+if(temp<=0){
 color1="#0f2027";
 color2="#203a43";
 }
-else if(temp <= 10){
+else if(temp<=10){
 color1="#1e3c72";
 color2="#2a5298";
 }
-else if(temp <= 20){
+else if(temp<=20){
 color1="#2980b9";
 color2="#6dd5fa";
 }
-else if(temp <= 30){
+else if(temp<=30){
 color1="#ff9966";
 color2="#ff5e62";
 }
@@ -184,7 +240,7 @@ color1="#ff512f";
 color2="#dd2476";
 }
 
-document.body.style.background =
+document.body.style.background=
 `linear-gradient(to bottom, ${color1}, ${color2})`;
 
 }
