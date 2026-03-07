@@ -138,3 +138,17 @@ border-radius:50%;
 transform:translateX(-50%);
 box-shadow:0 0 5px rgba(0,0,0,0.4);
 }
+/* lluvia grande */
+
+.rainBig{
+font-size:70px;
+font-weight:bold;
+transition:color 0.5s;
+}
+.rainDry{
+color:#cccccc;
+}
+.rainWet{
+color:#4fc3ff;
+text-shadow:0 0 10px rgba(79,195,255,0.7);
+}
