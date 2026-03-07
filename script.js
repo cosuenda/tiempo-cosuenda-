@@ -163,8 +163,13 @@ document.getElementById("windDirText").textContent=
 document.getElementById("windMax").textContent=
 "Racha máxima diaria: "+windMax.toFixed(1)+" km/h";
 
-document.getElementById("rain").textContent=
-rainMm.toFixed(1)+" mm";
+const rainElement=document.getElementById("rain");
+rainElement.textContent=rainMm.toFixed(1);
+if(rainMm>0){
+rainElement.className="rainBig rainWet";
+}else{
+rainElement.className="rainBig rainDry";
+}
 
 document.getElementById("rainMonth").textContent=
 rainMonthMm.toFixed(1)+" mm";
