@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -19,25 +20,33 @@
 <body class="temp-bg">
 
 <header>
-<h1>Meteo Cosuenda</h1>
+<h1>🌦 Meteo Cosuenda</h1>
+<p class="subtitle">Tiempo en directo</p>
 </header>
 
 <div class="container">
 
-<div class="card">
+<!-- TARJETA TEMPERATURA -->
+<div class="card tempCard">
 <h2>Temperatura</h2>
+
 <div id="tempBig" class="bigTemp">--°</div>
+
 <p id="sensacion"></p>
 <p id="tempMin"></p>
 <p id="tempMax"></p>
+
 </div>
 
+<!-- HUMEDAD -->
 <div class="card">
 <h2>Humedad</h2>
-<div id="hum" class="bigNumber">--</div>
+<div id="hum" class="bigNumber">--%</div>
 </div>
 
+<!-- VIENTO -->
 <div class="card">
+
 <h2>Viento</h2>
 
 <div class="rosa">
@@ -60,47 +69,64 @@
 
 </div>
 
-<!-- Nueva tarjeta para racha máxima -->
+<!-- RACHA MAXIMA -->
 <div class="card">
-  <h2>Racha máxima</h2>
-  <div id="windMaxBig" class="bigNumber">-- km/h</div>
+<h2>Racha máxima</h2>
+<div id="windMaxBig" class="bigNumber">-- km/h</div>
 </div>
 
+<!-- LLUVIA -->
 <div class="card">
 <h2>Lluvia</h2>
-<p>Hoy: <span id="rain" class="rainBig">--</span></p>
-<p>Mes: <span id="rainMonth">--</span></p>
+<p>Hoy: <span id="rain" class="rainBig">-- mm</span></p>
+<p>Mes: <span id="rainMonth">-- mm</span></p>
 </div>
 
+<!-- PRESION -->
 <div class="card">
 <h2>Presión</h2>
-<div id="press" class="bigNumber">--</div>
+<div id="press" class="bigNumber">-- hPa</div>
 </div>
 
+<!-- RADIACION -->
 <div class="card">
-<h2>Radiación</h2>
-<p>UV: <span id="uv"></span></p>
-<p>Solar: <span id="solar"></span></p>
+<h2>Radiación solar</h2>
+<p>UV: <span id="uv">--</span></p>
+<p>Solar: <span id="solar">-- W/m²</span></p>
 </div>
 
-<div class="card">
+<!-- GRAFICA -->
+<div class="card grafCard">
 <h2>Temperatura últimas horas</h2>
 <canvas id="grafTemp"></canvas>
 </div>
 
-<div class="card">
+<!-- RADAR -->
+<div class="card radarCard">
+
 <h2>Radar lluvia</h2>
 
 <div class="radarBox">
+
 <iframe
-src="https://www.rainviewer.com/map.html?loc=41.36,-1.30,8&oFa=1&oC=1&oU=1&oCS=1&oF=1&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&marker=41.36,-1.30"
->
+src="https://www.rainviewer.com/map.html?loc=41.36,-1.30,8&oFa=1&oC=1&oU=1&oCS=1&oF=1&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&marker=41.36,-1.30">
 </iframe>
+
 </div>
 
 </div>
+
+</div>
+
+<footer>
 
 <div id="ultimaActualizacion"></div>
+
+<p class="creditos">
+Estación meteorológica automática
+</p>
+
+</footer>
 
 <script src="script.js"></script>
 
