@@ -57,11 +57,25 @@
 </div>
 
 <!-- LLUVIA -->
-<div class="card">
+<div class="card rainCard">
   <h2>Lluvia</h2>
-  <p>Hoy: <span id="rain" class="rainBig">-- mm</span></p>
-  <p>Mes: <span id="rainMonth">-- mm</span></p>
-  <p>Año: <span id="rainYear">-- mm</span></p> <!-- NUEVO -->
+  <div class="rainBars">
+    <div class="rainDay">
+      <span>Hoy</span>
+      <div class="bar" id="rain"></div>
+      <span class="value" id="rainValue">-- mm</span>
+    </div>
+    <div class="rainMonth">
+      <span>Mes</span>
+      <div class="bar" id="rainMonth"></div>
+      <span class="value" id="rainMonthValue">-- mm</span>
+    </div>
+    <div class="rainYear">
+      <span>Año</span>
+      <div class="bar" id="rainYear"></div>
+      <span class="value" id="rainYearValue">-- mm</span>
+    </div>
+  </div>
 </div>
 
 <!-- PRESION -->
