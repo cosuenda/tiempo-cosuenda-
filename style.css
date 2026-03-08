@@ -110,6 +110,17 @@ background:#003366;border-radius:50%;transform:translateX(-50%);
 /* RADAR */
 .radarBox iframe{width:100%;height:750px;border:none;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.4);}
 /* =============================
+   TARJETAS GRÁFICAS
+============================= */
+.grafCard{
+  grid-column: span 2;
+}
+
+.radarCard{
+  grid-column: span 2;
+}
+
+/* =============================
    BARRAS DE LLUVIA
 ============================= */
 .rainBars{
@@ -147,9 +158,6 @@ background:#003366;border-radius:50%;transform:translateX(-50%);
   text-align:left;
   font-weight:bold;
 }
-
-/* ULTIMA ACTUALIZACION */
-#ultimaActualizacion{margin:25px;opacity:0.8;font-size:14px;}
 
 /* RESPONSIVE MOVIL */
 @media (max-width:700px){
