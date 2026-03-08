@@ -86,8 +86,18 @@ const hum=parseFloat(o.humidity.value);
 const windKm=mphToKmh(w.wind_speed.value);
 const windDeg=parseFloat(w.wind_direction.value);
 const windGust=mphToKmh(w.wind_gust.value);
-const rainMm=inToMm(rain.daily.value);
-const rainMonthMm=inToMm(rain.monthly.value);
+// obtener datos
+const rainMm = inToMm(rain.daily.value);
+const rainMonthMm = inToMm(rain.monthly.value);
+const rainYearMm = inToMm(rain.yearly.value); // NUEVO: lluvia anual
+
+// actualizar HTML
+const rainElement = document.getElementById("rain");
+rainElement.textContent = rainMm.toFixed(1) + " mm";
+rainElement.className = "rainBig " + (rainMm > 0 ? "rainWet" : "rainDry");
+
+document.getElementById("rainMonth").textContent = rainMonthMm.toFixed(1) + " mm";
+document.getElementById("rainYear").textContent = rainYearMm.toFixed(1) + " mm"; // NUEVO
 const pressHpa=inHgToHpa(p.relative.value);
 const uv=data.data.solar_and_uvi.uvi.value;
 const solar=data.data.solar_and_uvi.solar.value;
