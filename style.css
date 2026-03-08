@@ -32,13 +32,13 @@ letter-spacing:1px;
    ============================= */
 
 .container{
-max-width:1400px;
-margin:auto;
-padding:20px;
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
+  max-width:1400px;
+  margin:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+  align-items:start;
 }
 
 /* =============================
@@ -246,16 +246,24 @@ max-width:100%;
 }
 
 /* =============================
-   ULTIMA ACTUALIZACION
+   Última actualización
    ============================= */
 
 #ultimaActualizacion{
+  margin:20px;
+  opacity:0.8;
+}
 
-margin:25px;
+/* =============================
+   Ajuste tamaño tarjetas grandes
+   ============================= */
 
-opacity:0.8;
+.grafCard{
+  grid-column: span 2;
+}
 
-font-size:14px;
+.radarCard{
+  grid-column: span 2;
 }
 
 /* =============================
