@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Meteo Cosuenda</title>
-
 <link rel="stylesheet" href="style.css">
-
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1e3c72">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
-
 <body class="temp-bg">
-
 <header>
 <h1>🌦 Meteo Cosuenda</h1>
 <p class="subtitle">Tiempo en directo</p>
@@ -29,13 +20,10 @@
 <!-- TARJETA TEMPERATURA -->
 <div class="card tempCard">
 <h2>Temperatura</h2>
-
 <div id="tempBig" class="bigTemp">--°</div>
-
 <p id="sensacion"></p>
 <p id="tempMin"></p>
 <p id="tempMax"></p>
-
 </div>
 
 <!-- HUMEDAD -->
@@ -46,11 +34,8 @@
 
 <!-- VIENTO -->
 <div class="card">
-
 <h2>Viento</h2>
-
 <div class="rosa">
-
 <div class="cardinal norte">N</div>
 <div class="cardinal noreste">NE</div>
 <div class="cardinal este">E</div>
@@ -59,14 +44,10 @@
 <div class="cardinal suroeste">SW</div>
 <div class="cardinal oeste">W</div>
 <div class="cardinal noroeste">NW</div>
-
 <div id="flechaViento" class="flecha"></div>
-
 </div>
-
 <div id="windValue" class="bigNumber">-- km/h</div>
 <p id="windDirText"></p>
-
 </div>
 
 <!-- RACHA MAXIMA -->
@@ -103,38 +84,24 @@
 
 <!-- RADAR -->
 <div class="card radarCard">
-
 <h2>Radar lluvia</h2>
-
 <div class="radarBox">
-
-<iframe
-src="https://www.rainviewer.com/map.html?loc=41.36,-1.30,8&oFa=1&oC=1&oU=1&oCS=1&oF=1&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&marker=41.36,-1.30">
-</iframe>
-
+<iframe src="https://www.rainviewer.com/map.html?loc=41.36,-1.30,8&oFa=1&oC=1&oU=1&oCS=1&oF=1&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&marker=41.36,-1.30"></iframe>
 </div>
-
 </div>
 
 </div>
 
 <footer>
-
 <div id="ultimaActualizacion"></div>
-
-<p class="creditos">
-Estación meteorológica automática
-</p>
-
+<p class="creditos">Estación meteorológica automática</p>
 </footer>
 
 <script src="script.js"></script>
-
 <script>
 if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("sw.js");
 }
 </script>
-
 </body>
 </html>
