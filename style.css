@@ -1,156 +1,288 @@
 /* =============================
-   Estilos base y body
+   BODY Y FONDO
    ============================= */
+
 body{
-  margin:0;
-  font-family:Arial;
-  background:linear-gradient(to bottom,#1e3c72,#2a5298);
-  color:white;
-  text-align:center;
-  transition:background 2s ease;
-}
-
-header{
-  padding:20px;
-  background:#001f3f;
-}
-
-.weatherIcon{
-  font-size:40px;
-  margin-top:5px;
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(to bottom,#1e3c72,#2a5298);
+color:white;
+text-align:center;
+transition:background 2s ease;
 }
 
 /* =============================
-   Contenedor y tarjetas
+   HEADER
    ============================= */
-.container{
-  max-width:1400px;
-  margin:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+
+header{
+padding:20px;
+background:#001f3f;
+box-shadow:0 3px 10px rgba(0,0,0,0.4);
 }
 
+header h1{
+margin:0;
+font-size:34px;
+letter-spacing:1px;
+}
+
+/* =============================
+   CONTENEDOR
+   ============================= */
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:20px;
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+}
+
+/* =============================
+   TARJETAS
+   ============================= */
+
 .card{
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  padding: 20px;
-  border-radius: 20px; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+background: rgba(255,255,255,0.08);
+
+backdrop-filter: blur(14px);
+
+padding:22px;
+
+border-radius:22px;
+
+box-shadow:
+0 5px 12px rgba(0,0,0,0.25),
+inset 0 0 10px rgba(255,255,255,0.05);
+
+transition:
+transform 0.3s ease,
+box-shadow 0.3s ease,
+background 0.3s ease;
 }
 
 .card:hover{
-  transform: translateY(-5px); 
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35); 
-  background: rgba(255, 255, 255, 0.15); 
+
+transform:translateY(-6px);
+
+box-shadow:
+0 12px 24px rgba(0,0,0,0.4),
+inset 0 0 10px rgba(255,255,255,0.15);
+
+background:rgba(255,255,255,0.14);
 }
 
 /* =============================
-   Números grandes con efecto neón
+   NUMEROS GRANDES
    ============================= */
-.bigTemp, .bigNumber, .rainBig{
-  font-weight:bold;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-  text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5);
+
+.bigTemp,
+.bigNumber,
+.rainBig{
+
+font-weight:bold;
+
+transition:
+color 0.6s ease,
+text-shadow 0.6s ease;
+
+text-shadow:
+0 0 12px rgba(255,255,255,0.9),
+0 0 25px rgba(255,255,255,0.6);
 }
 
 .bigTemp{
-  font-size:70px;
+font-size:80px;
+letter-spacing:2px;
 }
 
 .bigNumber{
-  font-size:40px;
+font-size:42px;
 }
 
 .rainBig{
-  font-size:70px;
+font-size:70px;
 }
 
 /* =============================
-   Racha máxima de viento
+   RACHA MAXIMA
    ============================= */
-#windMaxBig {
-  font-size:55px; 
-  color:#ffcc00; 
-  text-shadow: 0 0 15px rgba(255,204,0,0.8);
+
+#windMaxBig{
+
+font-size:55px;
+
+color:#ffd000;
+
+text-shadow:
+0 0 12px rgba(255,210,0,0.9),
+0 0 30px rgba(255,210,0,0.7);
 }
 
 /* =============================
-   Rosa de los vientos
+   ROSA DE LOS VIENTOS
    ============================= */
+
 .rosa{
-  position:relative;
-  width:180px;
-  height:180px;
-  border:3px solid white;
-  border-radius:50%;
-  margin:auto;
-  background:white;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 0 10px rgba(0,0,0,0.2);
+
+position:relative;
+
+width:190px;
+height:190px;
+
+border:4px solid white;
+
+border-radius:50%;
+
+margin:auto;
+
+background:white;
+
+box-shadow:
+inset 0 0 15px rgba(0,0,0,0.4),
+0 0 15px rgba(0,0,0,0.2);
 }
+
+/* Flecha */
 
 .flecha{
-  position:absolute;
-  width:6px;
-  height:80px;
-  background: linear-gradient(to top, #003366, #66ccff);
-  top:50%;
-  left:50%;
-  transform-origin:50% 100%;
-  transform:translate(-50%,-100%) rotate(0deg);
-  border-radius:3px;
-  box-shadow:0 0 6px rgba(0,0,0,0.3);
-  transition: transform 1.2s ease;
+
+position:absolute;
+
+width:6px;
+height:85px;
+
+background:linear-gradient(to top,#003366,#66ccff);
+
+top:50%;
+left:50%;
+
+transform-origin:50% 100%;
+
+transform:translate(-50%,-100%) rotate(0deg);
+
+border-radius:3px;
+
+box-shadow:0 0 8px rgba(0,0,0,0.4);
+
+transition:transform 1s ease;
 }
 
 .flecha::after{
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:50%;
-  width:14px;
-  height:14px;
-  background:#003366;
-  border-radius:50%;
-  transform:translateX(-50%);
+
+content:"";
+
+position:absolute;
+
+bottom:-7px;
+left:50%;
+
+width:14px;
+height:14px;
+
+background:#003366;
+
+border-radius:50%;
+
+transform:translateX(-50%);
 }
+
+/* =============================
+   PUNTOS CARDINALES
+   ============================= */
 
 .cardinal{
-  position:absolute;
-  color:#003366;
-  font-weight:bold;
+
+position:absolute;
+
+color:#003366;
+
+font-weight:bold;
+
+font-size:14px;
 }
 
-.norte{top:5%;left:50%;transform:translate(-50%,-50%)}
-.sur{bottom:5%;left:50%;transform:translate(-50%,50%)}
-.este{right:5%;top:50%;transform:translate(50%,-50%)}
-.oeste{left:5%;top:50%;transform:translate(-50%,-50%)}
+.norte{top:4%;left:50%;transform:translate(-50%,-50%)}
+.sur{bottom:4%;left:50%;transform:translate(-50%,50%)}
+.este{right:4%;top:50%;transform:translate(50%,-50%)}
+.oeste{left:4%;top:50%;transform:translate(-50%,-50%)}
+
 .noreste{top:15%;right:15%}
 .sureste{bottom:15%;right:15%}
 .suroeste{bottom:15%;left:15%}
 .noroeste{top:15%;left:15%}
 
 /* =============================
-   Radar de lluvia grande
+   RADAR LLUVIA
    ============================= */
 
 .radarBox{
-  grid-column:1 / -1;
+grid-column:1 / -1;
 }
 
 .radarBox iframe{
-  width:100%;
-  height:800px;
-  border:none;
-  border-radius:20px;
+
+width:100%;
+
+height:750px;
+
+border:none;
+
+border-radius:20px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
 }
 
 /* =============================
-   Última actualización
+   GRAFICA
    ============================= */
+
+canvas{
+max-width:100%;
+}
+
+/* =============================
+   ULTIMA ACTUALIZACION
+   ============================= */
+
 #ultimaActualizacion{
-  margin:20px;
-  opacity:0.8;
+
+margin:25px;
+
+opacity:0.8;
+
+font-size:14px;
+}
+
+/* =============================
+   RESPONSIVE MOVIL
+   ============================= */
+
+@media (max-width:700px){
+
+.bigTemp{
+font-size:60px;
+}
+
+.bigNumber{
+font-size:32px;
+}
+
+.rainBig{
+font-size:55px;
+}
+
+.rosa{
+width:150px;
+height:150px;
+}
+
+.radarBox iframe{
+height:450px;
+}
+
 }
