@@ -15,6 +15,9 @@
   <h1>Meteo Cosuenda</h1>
 </header>
 
+<!-- ALERTAS -->
+<div id="alertaMeteo" class="alerta"></div>
+
 <div class="container">
 
   <div class="card">
@@ -52,7 +55,6 @@
     <div id="windMaxBig" class="bigNumber">-- km/h</div>
   </div>
 
-  <!-- TARJETA LLUVIA VISUAL -->
   <div class="card rainCard">
     <h2>Lluvia</h2>
     <div class="rainBars">
@@ -104,7 +106,6 @@
 </div>
 
 <script src="script.js"></script>
-
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
