@@ -10,9 +10,10 @@ function gradosADireccion(g){
   return d[Math.round(g/45)%8];
 }
 
-let historialTemp = JSON.parse(localStorage.getItem("histTemp")||"[]");
+let historialTemp = JSON.parse(localStorage.getItem("histTemp") || "[]");
 
 function actualizarGrafica(temp){
+
   const ahora=new Date();
   const horaLabel = String(ahora.getHours()).padStart(2,"0")+":"+String(ahora.getMinutes()).padStart(2,"0");
 
@@ -25,7 +26,11 @@ function actualizarGrafica(temp){
   const ctx=document.getElementById("grafTemp");
   if(!ctx) return;
 
-  new Chart(ctx,{
+  if(window.graficaTemp){
+    window.graficaTemp.destroy();
+  }
+
+  window.graficaTemp = new Chart(ctx,{
     type:"line",
     data:{
       labels:historialTemp.map(d=>d.tempHora),
@@ -45,7 +50,9 @@ function actualizarGrafica(temp){
 }
 
 function colorTemperatura(temp){
+
   const el=document.getElementById("tempBig");
+  if(!el) return;
 
   if(temp<0) el.style.color="#00ffff";
   else if(temp<10) el.style.color="#66ccff";
@@ -55,7 +62,9 @@ function colorTemperatura(temp){
 }
 
 function colorHumedad(h){
+
   const el=document.getElementById("hum");
+  if(!el) return;
 
   if(h<40) el.style.color="#ffcc66";
   else if(h<70) el.style.color="#66ffcc";
@@ -63,6 +72,7 @@ function colorHumedad(h){
 }
 
 function modoNoche(){
+
   const hora=new Date().getHours();
 
   if(hora>=20 || hora<7){
@@ -77,7 +87,7 @@ async function obtenerDatos(){
     const response=await fetch(url);
     const data=await response.json();
 
-    if(data.code!==0) return;
+    if(!data || data.code!==0) return;
 
     const o=data.data.outdoor;
     const w=data.data.wind;
@@ -97,10 +107,7 @@ async function obtenerDatos(){
     const uv=data.data.solar_and_uvi.uvi.value;
     const solar=data.data.solar_and_uvi.solar.value;
 
-    // -----------------------------
     // LLUVIA
-    // -----------------------------
-
     const rainMm = inToMm(rain.daily.value);
     const rainMonthMm = inToMm(rain.monthly.value);
     const rainYearMm = inToMm(rain.yearly.value);
@@ -117,19 +124,24 @@ async function obtenerDatos(){
     document.getElementById("rainMonth").style.width = Math.min(100,(rainMonthMm/maxMonth)*100)+"%";
     document.getElementById("rainYear").style.width = Math.min(100,(rainYearMm/maxYear)*100)+"%";
 
-    // -----------------------------
-    // MINIMA Y MAXIMA REAL DE ECOWITT
-    // -----------------------------
+    // MINIMA MAXIMA SEGURAS
+    let tempMin=tempC;
+    let tempMax=tempC;
+    let windMax=windGust;
 
-    const tempMin = fToC(o.temperature.low.value);
-    const tempMax = fToC(o.temperature.high.value);
+    if(o.temperature.low){
+      tempMin=fToC(o.temperature.low.value);
+    }
 
-    // racha maxima del dia
-    const windMax = mphToKmh(w.wind_gust.max.value);
+    if(o.temperature.high){
+      tempMax=fToC(o.temperature.high.value);
+    }
 
-    // -----------------------------
+    if(w.wind_gust.max){
+      windMax=mphToKmh(w.wind_gust.max.value);
+    }
+
     // MOSTRAR DATOS
-    // -----------------------------
 
     document.getElementById("tempBig").textContent=tempC.toFixed(1)+"°";
 
@@ -175,7 +187,7 @@ async function obtenerDatos(){
 
   }catch(error){
 
-    console.log("error",error);
+    console.log("Error obteniendo datos",error);
 
   }
 
