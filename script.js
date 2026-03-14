@@ -44,6 +44,5 @@ async function actualizarDatos() {
   }
 }
 
-// Ejecutar al cargar y cada minuto
 actualizarDatos();
 setInterval(actualizarDatos, 60000);
