@@ -2,8 +2,13 @@ const url = "https://meteocosuenda2026.kazurrito1988.workers.dev/";
 
 async function actualizarDatos() {
   try {
-    const response = await fetch(WORKER_URL);
-    const json = await response.json();
+   const json = await response.json();
+
+  const o = json.data.data.outdoor;
+  const w = json.data.data.wind;
+  const rain = json.data.data.rainfall;
+  const p = json.data.data.pressure;
+  const solarData = json.data.data.solar_and_uvi;
 
     const mac = "84:CC:A8:B4:B1:F6";
     const data = json.data?.[mac] ?? {};
