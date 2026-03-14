@@ -17,6 +17,10 @@ let diaActual = new Date().getDate();
 let tempMinDia = parseFloat(localStorage.getItem("tempMinDia")) || null;
 let tempMaxDia = parseFloat(localStorage.getItem("tempMaxDia")) || null;
 
+// Historial de temperaturas para la gráfica
+let tempHistory = [];
+const maxHistory = 12; // Últimas 12 mediciones (~24 min)
+
 // Función principal
 async function obtenerDatos(){
   try{
@@ -63,6 +67,15 @@ async function obtenerDatos(){
     if(tempMinEl) tempMinEl.textContent = "Mínima diaria: "+(tempMinDia !== null ? tempMinDia.toFixed(1)+"°" : "--");
     if(tempMaxEl) tempMaxEl.textContent = "Máxima diaria: "+(tempMaxDia !== null ? tempMaxDia.toFixed(1)+"°" : "--");
 
+    // Actualizar historial para gráfica
+    if(tempC !== "--"){
+      const now = new Date();
+      const hora = now.getHours().toString().padStart(2,'0');
+      const min = now.getMinutes().toString().padStart(2,'0');
+      tempHistory.push({time:`${hora}:${min}`, value: tempC.toFixed(1)});
+      if(tempHistory.length > maxHistory) tempHistory.shift();
+    }
+
     // Humedad
     const humEl = document.getElementById("hum");
     if(humEl) humEl.textContent = o.humidity?.value ?? "--";
@@ -94,8 +107,8 @@ async function obtenerDatos(){
     if(rainMonthEl) rainMonthEl.textContent = rainMonth !== "--" ? rainMonth.toFixed(1)+" mm" : "--";
     if(rainYearEl) rainYearEl.textContent = rainYear !== "--" ? rainYear.toFixed(1)+" mm" : "--";
 
-    // Barras de lluvia (proporcional)
-    const maxRain = Math.max(rainDay||0, rainMonth||0, rainYear||0, 1); // evitar 0
+    // Barras de lluvia
+    const maxRain = Math.max(rainDay||0, rainMonth||0, rainYear||0, 1);
     const bars = [
       {bar: document.querySelector(".rainDay .bar"), value: rainDay},
       {bar: document.querySelector(".rainMonth .bar"), value: rainMonth},
@@ -118,6 +131,37 @@ async function obtenerDatos(){
     // Última actualización
     const updEl = document.getElementById("ultimaActualizacion");
     if(updEl) updEl.textContent = "Última actualización: "+new Date().toLocaleTimeString();
+
+    // Gráfica de temperaturas
+    const ctx = document.getElementById("grafTemp");
+    if(ctx){
+      if(!ctx.chart){
+        ctx.chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: tempHistory.map(t=>t.time),
+            datasets: [{
+              label: 'Temperatura (°C)',
+              data: tempHistory.map(t=>t.value),
+              borderColor: '#1e90ff',
+              backgroundColor: 'rgba(30,144,255,0.2)',
+              tension: 0.4,
+              fill: true,
+              pointRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {legend:{display:false}},
+            scales:{y:{beginAtZero:false}}
+          }
+        });
+      } else {
+        ctx.chart.data.labels = tempHistory.map(t=>t.time);
+        ctx.chart.data.datasets[0].data = tempHistory.map(t=>t.value);
+        ctx.chart.update();
+      }
+    }
 
   } catch(e){
     console.error("Error actualizando datos:", e);
