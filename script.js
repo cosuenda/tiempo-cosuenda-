@@ -1,80 +1,52 @@
-// ================================
-// script.js final para Meteo Cosuenda
-// ================================
+const appKey = "26C4D6AD21CF8F8C4F3BA85E1CAF6701";
+const apiKey = "adf65434-1ace-43dd-b9a9-27915843d243";
+const mac = "84:CC:A8:B4:B1:F6";
 
-// URL de tu Worker
-const WORKER_URL = "https://TU_WORKER.workers.dev/data";
+const ECOWITT_URL = `https://api.ecowitt.net/api/v3/device/real_time?application_key=${appKey}&api_key=${apiKey}&mac=${mac}&call_back=all`;
 
-// Funciones de conversión
-const fToC = f => (f !== null ? ((f - 32) * 5/9).toFixed(1) : "--");
-const inToMm = i => (i !== null ? (i * 25.4).toFixed(1) : "--");
-const mphToKmh = m => (m !== null ? (m * 1.60934).toFixed(1) : "--");
-
-// Campos que vamos a actualizar
-const campos = {
-  tempBig: "tempf",
-  sensacion: "feelslike",
-  tempMin: "tempmin",
-  tempMax: "tempmax",
-  hum: "humidity",
-  windValue: "windspeedmph",
-  windMax: "windgustmph",
-  windDirText: "winddir",
-  rain: "rainin",
-  rainMonth: "rainMonth",
-  press: "baromrelin",
-  uv: "uv",
-  solar: "solarradiation"
-};
-
-// Función principal
 async function actualizarDatos() {
   try {
-    const res = await fetch(WORKER_URL);
-    const data = await res.json();
+    const response = await fetch(ECOWITT_URL);
+    const data = await response.json();
 
     // Temperatura
-    document.getElementById("tempBig").textContent = fToC(data.tempf) + "°C";
-    document.getElementById("sensacion").textContent = "Sensación térmica: " + fToC(data.feelslike) + "°C";
-    document.getElementById("tempMin").textContent = "Mínima diaria: " + fToC(data.tempmin) + "°C";
-    document.getElementById("tempMax").textContent = "Máxima diaria: " + fToC(data.tempmax) + "°C";
+    document.getElementById("tempBig").textContent = data.temp ?? "--";
+    document.getElementById("sensacion").textContent = "Sensación térmica: " + (data.sensacion ?? "--");
+    document.getElementById("tempMin").textContent = "Mínima diaria: " + (data.temp_min ?? "--");
+    document.getElementById("tempMax").textContent = "Máxima diaria: " + (data.temp_max ?? "--");
 
     // Humedad
-    document.getElementById("hum").textContent = data.humidity ?? "--";
+    document.getElementById("hum").textContent = data.hum ?? "--";
 
     // Viento
-    document.getElementById("windValue").textContent = mphToKmh(data.windspeedmph);
-    document.getElementById("windMax").textContent = "Racha máxima diaria: " + mphToKmh(data.windgustmph);
-    document.getElementById("windDirText").textContent = "Dirección: " + (data.winddir ?? "--");
+    document.getElementById("windValue").textContent = data.wind ?? "--";
+    document.getElementById("windMax").textContent = "Racha máxima diaria: " + (data.wind_max ?? "--");
+    document.getElementById("windDirText").textContent = "Dirección: " + (data.wind_dir ?? "--");
 
-    // Rotar flecha según dirección del viento
-    if (data.winddir !== undefined && data.winddir !== null) {
-      const flecha = document.getElementById("flechaViento");
-      flecha.style.transform = `rotate(${data.winddir}deg)`;
+    // Rosa de los vientos: girar flecha
+    const flecha = document.getElementById("flechaViento");
+    if (data.wind_dir_deg != null) {
+      flecha.style.transform = `rotate(${data.wind_dir_deg}deg)`;
     }
 
     // Lluvia
-    document.getElementById("rain").textContent = inToMm(data.rainin) + " mm";
-    document.getElementById("rainMonth").textContent = inToMm(data.rainMonth) + " mm";
+    document.getElementById("rain").textContent = data.rain ?? "--";
+    document.getElementById("rainMonth").textContent = data.rain_month ?? "--";
 
-    // Presión
-    document.getElementById("press").textContent = data.baromrelin ?? "--";
-
-    // UV y radiación solar
+    // Presión, UV y solar
+    document.getElementById("press").textContent = data.press ?? "--";
     document.getElementById("uv").textContent = data.uv ?? "--";
-    document.getElementById("solar").textContent = data.solarradiation ?? "--";
+    document.getElementById("solar").textContent = data.solar ?? "--";
 
     // Última actualización
-    const ahora = new Date();
-    document.getElementById("ultimaActualizacion").textContent = "Última actualización: " + ahora.toLocaleTimeString();
+    const now = new Date();
+    document.getElementById("ultimaActualizacion").textContent = "Última actualización: " + now.toLocaleTimeString();
 
-  } catch (err) {
-    console.error("Error actualizando datos:", err);
+  } catch (error) {
+    console.error("Error al obtener datos Ecowitt:", error);
   }
 }
 
-// Ejecutar al cargar
+// Actualiza al cargar la página y cada minuto
 actualizarDatos();
-
-// Refrescar cada minuto
 setInterval(actualizarDatos, 60000);
