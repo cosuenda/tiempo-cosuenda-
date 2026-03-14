@@ -1,4 +1,4 @@
-const url = "https://meteo-cosuenda.luisromea.workers.dev/";
+const url = "https://meteocosuenda2026.kazurrito1988.workers.dev/";
 
 async function actualizarDatos() {
   try {
