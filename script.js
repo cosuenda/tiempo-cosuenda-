@@ -1,176 +1,74 @@
-// ===============================
-// CONFIGURACIÓN DEL WORKER
-// ===============================
 const url = "https://meteocosuenda2026.kazurrito1988.workers.dev/";
 
-// ===============================
-// FUNCIONES DE CONVERSIÓN
-// ===============================
+// Conversión de unidades
 const fToC = f => (parseFloat(f) - 32) * 5 / 9;
 const mphToKmh = mph => parseFloat(mph) * 1.60934;
 const inToMm = inches => parseFloat(inches) * 25.4;
 const inHgToHpa = inHg => parseFloat(inHg) * 33.8639;
 
+// Dirección
 function gradosADireccion(g){
   const d=["N","NE","E","SE","S","SW","W","NW"];
   return d[Math.round(g/45)%8];
 }
 
-// ===============================
-// HISTORIAL DE TEMPERATURA
-// ===============================
-let historialTemp = JSON.parse(localStorage.getItem("histTemp") || "[]");
-
-function actualizarGrafica(temp){
-  const ahora = new Date();
-  const horaLabel = String(ahora.getHours()).padStart(2,"0")+":"+String(ahora.getMinutes()).padStart(2,"0");
-  historialTemp.push({temp,tempHora:horaLabel});
-  if(historialTemp.length>24) historialTemp.shift();
-  localStorage.setItem("histTemp", JSON.stringify(historialTemp));
-
-  const ctx = document.getElementById("grafTemp");
-  if(!ctx) return;
-
-  if(window.graficaTemp) window.graficaTemp.destroy();
-
-  window.graficaTemp = new Chart(ctx,{
-    type:"line",
-    data:{
-      labels: historialTemp.map(d=>d.tempHora),
-      datasets:[{
-        label:"Temperatura",
-        data: historialTemp.map(d=>d.temp),
-        borderColor:"#ffcc00",
-        backgroundColor:"rgba(255,204,0,0.2)",
-        tension:0.4
-      }]
-    },
-    options:{ responsive:true, plugins:{legend:{display:false}} }
-  });
-}
-
-// ===============================
-// COLORES Y MODO NOCHE
-// ===============================
-function colorTemperatura(temp){
-  const el = document.getElementById("tempBig");
-  if(!el) return;
-  if(temp<0) el.style.color="#00ffff";
-  else if(temp<10) el.style.color="#66ccff";
-  else if(temp<20) el.style.color="#00ff99";
-  else if(temp<30) el.style.color="#ffff66";
-  else el.style.color="#ff6666";
-}
-
-function colorHumedad(h){
-  const el = document.getElementById("hum");
-  if(!el) return;
-  if(h<40) el.style.color="#ffcc66";
-  else if(h<70) el.style.color="#66ffcc";
-  else el.style.color="#66ccff";
-}
-
-function modoNoche(){
-  const hora = new Date().getHours();
-  if(hora>=20 || hora<7){
-    document.body.style.background = "linear-gradient(#000428,#004e92)";
-  }
-}
-
-// ===============================
-// ALERTAS METEOROLÓGICAS
-// ===============================
-let ultimaAlerta = "";
-function comprobarAlertas(temp, viento, lluvia){
-  const alerta = document.getElementById("alertaMeteo");
-  alerta.className = "alerta";
-  alerta.textContent = "";
-  let mensaje = "";
-  if(temp<=0){ alerta.textContent="❄ Aviso de helada"; alerta.classList.add("alertaHelada"); mensaje="Helada"; }
-  else if(temp>=35){ alerta.textContent="🔥 Aviso de calor fuerte"; alerta.classList.add("alertaCalor"); mensaje="Calor"; }
-  else if(viento>=50){ alerta.textContent="🌬 Aviso de viento fuerte"; alerta.classList.add("alertaViento"); mensaje="Viento"; }
-  else if(lluvia>=30){ alerta.textContent="🌧 Lluvia intensa hoy"; alerta.classList.add("alertaLluvia"); mensaje="Lluvia"; }
-  if(!mensaje) ultimaAlerta = "";
-  else ultimaAlerta = mensaje;
-}
-
-// ===============================
-// OBTENER DATOS DESDE EL WORKER
-// ===============================
+// Actualiza datos visuales
 async function obtenerDatos(){
-  try{
+  try {
     const response = await fetch(url);
-    const data = await response.json();
-    if(!data || data.code!==0) return;
+    const json = await response.json();
+    if(!json || json.code !== 0) return;
 
-    const o = data.data.outdoor;
-    const w = data.data.wind;
-    const rain = data.data.rainfall;
-    const p = data.data.pressure;
+    const data = json.data.data; // <<< **IMPORTANTE**
 
+    const o = data.outdoor;
+    const w = data.wind;
+    const rain = data.rainfall;
+    const p = data.pressure;
+    const uv = data.solar_and_uvi.uvi.value ?? "--";
+    const solar = data.solar_and_uvi.solar.value ?? "--";
+
+    // Temperatura
     const tempC = fToC(o.temperature.value);
     const feels = fToC(o.feels_like.value);
-    const hum = parseFloat(o.humidity.value);
-    const windKm = mphToKmh(w.wind_speed.value);
-    const windDeg = parseFloat(w.wind_direction.value);
-    const windGust = mphToKmh(w.wind_gust.value);
-    const pressHpa = inHgToHpa(p.relative.value);
-    const uv = data.data.solar_and_uvi.uvi.value;
-    const solar = data.data.solar_and_uvi.solar.value;
-
-    const rainMm = inToMm(rain.daily.value);
-    const rainMonthMm = inToMm(rain.monthly.value);
-    const rainYearMm = inToMm(rain.yearly.value);
-
-    document.getElementById("rainValue").textContent = rainMm.toFixed(1)+" mm";
-    document.getElementById("rainMonthValue").textContent = rainMonthMm.toFixed(1)+" mm";
-    document.getElementById("rainYearValue").textContent = rainYearMm.toFixed(1)+" mm";
-
-    const maxDay=50, maxMonth=300, maxYear=1200;
-    document.getElementById("rain").style.width = Math.min(100,(rainMm/maxDay)*100)+"%";
-    document.getElementById("rainMonth").style.width = Math.min(100,(rainMonthMm/maxMonth)*100)+"%";
-    document.getElementById("rainYear").style.width = Math.min(100,(rainYearMm/maxYear)*100)+"%";
-
-    let tempMin=tempC, tempMax=tempC, windMax=windGust;
-    if(o.temperature.low) tempMin=fToC(o.temperature.low.value);
-    if(o.temperature.high) tempMax=fToC(o.temperature.high.value);
-    if(w.wind_gust.max) windMax=mphToKmh(w.wind_gust.max.value);
 
     document.getElementById("tempBig").textContent = tempC.toFixed(1)+"°";
     document.getElementById("sensacion").textContent = "Sensación térmica: "+feels.toFixed(1)+"°";
-    document.getElementById("tempMin").textContent = "Mínima diaria: "+tempMin.toFixed(1)+"°";
-    document.getElementById("tempMax").textContent = "Máxima diaria: "+tempMax.toFixed(1)+"°";
-    document.getElementById("hum").textContent = hum+"%";
+    document.getElementById("tempMin").textContent = "Mínima diaria: --";
+    document.getElementById("tempMax").textContent = "Máxima diaria: --";
+
+    // Humedad
+    document.getElementById("hum").textContent = o.humidity.value+"%";
+
+    // Viento
+    const windKm = mphToKmh(w.wind_speed.value);
     document.getElementById("windValue").textContent = windKm.toFixed(1)+" km/h";
-    document.getElementById("windDirText").textContent = "Dirección "+gradosADireccion(windDeg);
-    document.getElementById("press").textContent = pressHpa.toFixed(1)+" hPa";
+    document.getElementById("windDirText").textContent = "Dirección: "+gradosADireccion(w.wind_direction.value);
+
+    // Racha máxima
+    document.getElementById("windMax").textContent = "Racha máxima diaria: "+mphToKmh(w.wind_gust.value).toFixed(1)+" km/h";
+
+    // Lluvia
+    const rainMm = inToMm(rain.daily.value);
+    const rainMonthMm = inToMm(rain.monthly.value);
+    document.getElementById("rain").textContent = rainMm.toFixed(1);
+    document.getElementById("rainMonth").textContent = rainMonthMm.toFixed(1);
+
+    // Presión
+    document.getElementById("press").textContent = inHgToHpa(p.relative.value).toFixed(1);
+
+    // UV y solar
     document.getElementById("uv").textContent = uv;
-    document.getElementById("solar").textContent = solar+" W/m²";
+    document.getElementById("solar").textContent = solar;
 
-    const windMaxBig = document.getElementById("windMaxBig");
-    if(windMaxBig) windMaxBig.textContent = windMax.toFixed(1)+" km/h";
+    // Última actualización
+    const now = new Date();
+    document.getElementById("ultimaActualizacion").textContent = "Última actualización: "+now.toLocaleTimeString();
 
-    document.getElementById("flechaViento").style.transform = `translate(-50%,-100%) rotate(${windDeg}deg)`;
-
-    colorTemperatura(tempC);
-    colorHumedad(hum);
-
-    if(windKm>40) document.getElementById("windValue").style.textShadow = "0 0 20px #ffffff";
-
-    actualizarGrafica(tempC);
-    modoNoche();
-    comprobarAlertas(tempC, windMax, rainMm);
-
-    const ahora = new Date();
-    document.getElementById("ultimaActualizacion").textContent = "Última actualización "+ahora.getHours()+":"+String(ahora.getMinutes()).padStart(2,"0");
-
-  }catch(error){
-    console.log("Error obteniendo datos", error);
+  } catch (e) {
+    console.error("Error actualizando datos:", e);
   }
 }
 
-// ===============================
-// EJECUCIÓN INICIAL Y ACTUALIZACIÓN CADA 2 MIN
-// ===============================
 obtenerDatos();
 setInterval(obtenerDatos, 120000);
