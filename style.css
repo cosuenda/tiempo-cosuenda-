@@ -1,6 +1,4 @@
-/* =============================
-BODY Y FONDO
-============================= */
+/* BODY Y FONDO */
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
@@ -20,11 +18,6 @@ header h1{
 margin:0;
 font-size:34px;
 letter-spacing:1px;
-}
-.subtitle{
-font-size:16px;
-opacity:0.8;
-margin-top:5px;
 }
 
 /* CONTENEDOR */
@@ -109,38 +102,23 @@ background:#003366;border-radius:50%;transform:translateX(-50%);
 
 /* RADAR */
 .radarBox iframe{width:100%;height:750px;border:none;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.4);}
-/* =============================
-   TARJETAS GRÁFICAS
-============================= */
-.grafCard{
-  grid-column: span 2;
-}
 
-.radarCard{
-  grid-column: span 2;
-}
-
-/* =============================
-   BARRAS DE LLUVIA
-============================= */
+/* BARRAS DE LLUVIA */
 .rainBars{
   display:flex;
   flex-direction:column;
   gap:10px;
   margin-top:10px;
 }
-
 .rainBars div{
   display:flex;
   align-items:center;
   gap:10px;
 }
-
 .rainBars span{
   width:40px;
   text-align:right;
 }
-
 .bar{
   flex:1;
   height:20px;
@@ -148,18 +126,45 @@ background:#003366;border-radius:50%;transform:translateX(-50%);
   background: rgba(0, 0, 255, 0.2);
   transition: width 0.8s ease, background 0.8s ease;
 }
-
 .rainDay .bar{background:#66ccff;}
 .rainMonth .bar{background:#3399ff;}
 .rainYear .bar{background:#003366;}
-
 .value{
   width:50px;
   text-align:left;
   font-weight:bold;
 }
 
-/* RESPONSIVE MOVIL */
+/* TARJETA UV/SOLAR MEJORADA */
+.card.uvCard {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  padding: 20px;
+  border-radius: 22px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25), inset 0 0 10px rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 2px solid;
+  border-image-slice: 1;
+  animation: borderShift 5s linear infinite;
+}
+.card.uvCard p {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 4px 0;
+}
+
+@keyframes borderShift {
+  0% { border-image: linear-gradient(45deg, #ffcc00, #66ff66, #1e90ff) 1; }
+  25% { border-image: linear-gradient(45deg, #66ff66, #1e90ff, #ffcc00) 1; }
+  50% { border-image: linear-gradient(45deg, #1e90ff, #ffcc00, #66ff66) 1; }
+  75% { border-image: linear-gradient(45deg, #ffcc00, #66ff66, #1e90ff) 1; }
+  100% { border-image: linear-gradient(45deg, #ffcc00, #66ff66, #1e90ff) 1; }
+}
+
+/* RESPONSIVE */
 @media (max-width:700px){
 .bigTemp{font-size:60px;}
 .bigNumber{font-size:32px;}
