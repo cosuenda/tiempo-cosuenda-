@@ -32,34 +32,41 @@
   <div class="card">
     <h2>Viento (km/h)</h2>
     <div id="windValue" class="bigNumber">--</div>
-    <div id="windMax">Racha máxima diaria: --</div>
+    <div id="windMaxBig">--</div>
     <div id="windDirText">Dirección: --</div>
 
     <div class="rosa">
-      <div class="cardinal norte">N</div>
-      <div class="cardinal noreste">NE</div>
-      <div class="cardinal este">E</div>
-      <div class="cardinal sureste">SE</div>
-      <div class="cardinal sur">S</div>
-      <div class="cardinal suroeste">SW</div>
-      <div class="cardinal oeste">W</div>
-      <div class="cardinal noroeste">NW</div>
       <div id="flechaViento" class="flecha"></div>
     </div>
   </div>
 
   <div class="card">
     <h2>Lluvia</h2>
-    <div class="rainBox">
-      <div>
-        <span class="rainLabel">Hoy</span>
-        <div id="rain" class="bigNumber">--</div>
-      </div>
-      <div>
-        <span class="rainLabel">Mensual</span>
-        <div id="rainMonth" class="bigNumber">--</div>
+
+    <div>
+      Hoy
+      <div id="rainValue" class="bigNumber">--</div>
+      <div class="rainBars">
+        <div id="rain" class="bar"></div>
       </div>
     </div>
+
+    <div>
+      Mes
+      <div id="rainMonthValue" class="bigNumber">--</div>
+      <div class="rainBars">
+        <div id="rainMonth" class="bar"></div>
+      </div>
+    </div>
+
+    <div>
+      Año
+      <div id="rainYearValue" class="bigNumber">--</div>
+      <div class="rainBars">
+        <div id="rainYear" class="bar"></div>
+      </div>
+    </div>
+
   </div>
 
   <div class="card">
@@ -84,5 +91,6 @@
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
