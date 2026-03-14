@@ -1,118 +1,169 @@
+/* =============================
+BODY Y FONDO
+============================= */
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(to bottom,#1e3c72,#2a5298);
-  color:white;
-  text-align:center;
-  transition:background 2s ease;
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(to bottom,#1e3c72,#2a5298);
+color:white;
+text-align:center;
+transition:background 2s ease;
 }
 
+/* HEADER */
 header{
-  padding:20px;
-  background:#001f3f;
+padding:20px;
+background:#001f3f;
+box-shadow:0 3px 10px rgba(0,0,0,0.4);
+}
+header h1{
+margin:0;
+font-size:34px;
+letter-spacing:1px;
+}
+.subtitle{
+font-size:16px;
+opacity:0.8;
+margin-top:5px;
 }
 
+/* CONTENEDOR */
 .container{
-  max-width:1200px;
-  margin:auto;
-  padding:10px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
+max-width:1400px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+align-items:start;
 }
 
+/* TARJETAS */
 .card{
-  background:rgba(0,0,0,0.35);
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
-  backdrop-filter:blur(6px);
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(14px);
+padding:22px;
+border-radius:22px;
+box-shadow:
+0 5px 12px rgba(0,0,0,0.25),
+inset 0 0 10px rgba(255,255,255,0.05);
+transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.card:hover{
+transform:translateY(-6px);
+box-shadow:
+0 12px 24px rgba(0,0,0,0.4),
+inset 0 0 10px rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.14);
 }
 
-.bigTemp{
-  font-size:clamp(50px,8vw,90px);
-  font-weight:bold;
+/* NUMEROS GRANDES */
+.bigTemp,.bigNumber,.rainBig{
+font-weight:bold;
+transition: color 0.6s ease, text-shadow 0.6s ease;
+text-shadow: 0 0 12px rgba(255,255,255,0.9),0 0 25px rgba(255,255,255,0.6);
+}
+.bigTemp{font-size:80px;letter-spacing:2px;}
+.bigNumber{font-size:42px;}
+.rainBig{font-size:70px;}
+
+/* RACHA MAXIMA */
+#windMaxBig{
+font-size:55px;color:#ffd000;
+text-shadow:0 0 12px rgba(255,210,0,0.9),0 0 30px rgba(255,210,0,0.7);
 }
 
-.bigNumber{
-  font-size:clamp(28px,5vw,50px);
-  font-weight:bold;
-}
-
+/* ROSA DE LOS VIENTOS */
 .rosa{
-  position:relative;
-  width:160px;
-  height:160px;
-  margin:auto;
-  border-radius:50%;
-  border:2px solid white;
+position:relative;width:190px;height:190px;border:4px solid white;border-radius:50%;
+margin:auto;background:white;
+box-shadow: inset 0 0 15px rgba(0,0,0,0.4),0 0 15px rgba(0,0,0,0.2);
 }
-
 .flecha{
-  width:4px;
-  height:70px;
-  background:red;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform-origin:50% 100%;
+position:absolute;width:6px;height:85px;
+background:linear-gradient(to top,#003366,#66ccff);
+top:50%;left:50%;
+transform-origin:50% 100%;
+transform:translate(-50%,-100%) rotate(0deg);
+border-radius:3px;
+box-shadow:0 0 8px rgba(0,0,0,0.4);
+transition:transform 1s ease;
+}
+.flecha::after{
+content:"";position:absolute;bottom:-7px;left:50%;width:14px;height:14px;
+background:#003366;border-radius:50%;transform:translateX(-50%);
+}
+.cardinal{position:absolute;color:#003366;font-weight:bold;font-size:14px;}
+.norte{top:4%;left:50%;transform:translate(-50%,-50%)}
+.sur{bottom:4%;left:50%;transform:translate(-50%,50%)}
+.este{right:4%;top:50%;transform:translate(50%,-50%)}
+.oeste{left:4%;top:50%;transform:translate(-50%,-50%)}
+.noreste{top:15%;right:15%}
+.sureste{bottom:15%;right:15%}
+.suroeste{bottom:15%;left:15%}
+.noroeste{top:15%;left:15%}
+
+/* TARJETAS GRANDES */
+.grafCard{grid-column: span 2;}
+.radarCard{grid-column: span 2;}
+
+/* RADAR */
+.radarBox iframe{width:100%;height:750px;border:none;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.4);}
+/* =============================
+   TARJETAS GRÁFICAS
+============================= */
+.grafCard{
+  grid-column: span 2;
 }
 
-.radarBox{
-  position:relative;
-  width:100%;
-  padding-top:70%;
+.radarCard{
+  grid-column: span 2;
 }
 
-.radarBox iframe{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  border:0;
+/* =============================
+   BARRAS DE LLUVIA
+============================= */
+.rainBars{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:10px;
 }
 
-.rainBars .bar{
-  height:15px;
-  background:#00ffff;
-  border-radius:8px;
-  margin:5px 0;
+.rainBars div{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.alerta{
-  width:100%;
-  text-align:center;
-  font-size:22px;
+.rainBars span{
+  width:40px;
+  text-align:right;
+}
+
+.bar{
+  flex:1;
+  height:20px;
+  border-radius:10px;
+  background: rgba(0, 0, 255, 0.2);
+  transition: width 0.8s ease, background 0.8s ease;
+}
+
+.rainDay .bar{background:#66ccff;}
+.rainMonth .bar{background:#3399ff;}
+.rainYear .bar{background:#003366;}
+
+.value{
+  width:50px;
+  text-align:left;
   font-weight:bold;
-  padding:10px;
-  margin-bottom:10px;
 }
 
-.alertaHelada{ background:#00ccff; }
-.alertaCalor{ background:#ff4444; }
-.alertaViento{ background:#ffaa00; }
-.alertaLluvia{ background:#3399ff; }
-
-@media (max-width:768px){
-  header h1{ font-size:22px; }
-  .bigTemp{ font-size:60px; }
-  .bigNumber{ font-size:32px; }
-  .rosa{ width:140px; height:140px; }
-  canvas{ width:100% !important; height:auto !important; }
+/* RESPONSIVE MOVIL */
+@media (max-width:700px){
+.bigTemp{font-size:60px;}
+.bigNumber{font-size:32px;}
+.rainBig{font-size:55px;}
+.rosa{width:150px;height:150px;}
+.radarBox iframe{height:450px;}
 }
-/* Temperaturas mínima, máxima y actual */
-.tempMin, .tempMax, .tempBig {
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  color: white;
-  display: inline-block;
-  transition: background 0.3s;
-  margin: 2px;
-}
-
-/* Colores según temperatura */
-.temp-cold { background-color: #1E90FF; }    /* azul */
-.temp-medium { background-color: #FFA500; }  /* naranja */
-.temp-hot { background-color: #FF4500; }     /* rojo */
