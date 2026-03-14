@@ -12,27 +12,17 @@ function gradosADireccion(g){
   return g !== undefined ? d[Math.round(g/45)%8] : "--";
 }
 
-// Función para asignar clase de color según temperatura
-function claseTemperatura(tempC){
-  if(tempC === null || tempC === "--") return "";
-  if(tempC < 10) return "temp-cold";
-  if(tempC < 25) return "temp-medium";
-  return "temp-hot";
-}
-
-// Día actual para reiniciar min/max
+// Persistencia mínima/máxima diaria
 let diaActual = new Date().getDate();
-
-// Cargar min y max del día desde localStorage
 let tempMinDia = parseFloat(localStorage.getItem("tempMinDia")) || null;
 let tempMaxDia = parseFloat(localStorage.getItem("tempMaxDia")) || null;
 
+// Función principal
 async function obtenerDatos(){
-  try {
-    const response = await fetch(url);
-    const json = await response.json();
+  try{
+    const resp = await fetch(url);
+    const json = await resp.json();
     if(!json || json.code !== 0) return;
-
     const data = json.data.data;
 
     const o = data?.outdoor ?? {};
@@ -42,7 +32,7 @@ async function obtenerDatos(){
     const uv = data?.solar_and_uvi?.uvi?.value ?? "--";
     const solar = data?.solar_and_uvi?.solar?.value ?? "--";
 
-    // Reiniciar si cambia el día
+    // Reinicio diario de min/max
     const hoy = new Date().getDate();
     if(hoy !== diaActual){
       diaActual = hoy;
@@ -57,66 +47,83 @@ async function obtenerDatos(){
     const feels = fToC(o.feels_like?.value);
 
     const tempBigEl = document.getElementById("tempBig");
-    tempBigEl.textContent = tempC !== "--" ? tempC.toFixed(1)+"°" : "--";
-    tempBigEl.className = "tempBig " + claseTemperatura(tempC);
+    if(tempBigEl) tempBigEl.textContent = tempC !== "--" ? tempC.toFixed(1)+"°" : "--";
 
-    // Actualizar min y max y guardarlas en localStorage
+    const sensEl = document.getElementById("sensacion");
+    if(sensEl) sensEl.textContent = "Sensación térmica: "+(feels !== "--" ? feels.toFixed(1)+"°" : "--");
+
+    // Min/Max persistentes
     if(tempC !== "--"){
-      if(tempMinDia === null || tempC < tempMinDia){
-        tempMinDia = tempC;
-        localStorage.setItem("tempMinDia", tempMinDia);
-      }
-      if(tempMaxDia === null || tempC > tempMaxDia){
-        tempMaxDia = tempC;
-        localStorage.setItem("tempMaxDia", tempMaxDia);
-      }
+      if(tempMinDia === null || tempC < tempMinDia){ tempMinDia = tempC; localStorage.setItem("tempMinDia", tempMinDia);}
+      if(tempMaxDia === null || tempC > tempMaxDia){ tempMaxDia = tempC; localStorage.setItem("tempMaxDia", tempMaxDia);}
     }
 
-    // Actualizar min y max en el DOM con colores
     const tempMinEl = document.getElementById("tempMin");
     const tempMaxEl = document.getElementById("tempMax");
-
-    tempMinEl.textContent = "Mínima diaria: "+(tempMinDia !== null ? tempMinDia.toFixed(1)+"°" : "--");
-    tempMaxEl.textContent = "Máxima diaria: "+(tempMaxDia !== null ? tempMaxDia.toFixed(1)+"°" : "--");
-
-    tempMinEl.className = "tempMin " + claseTemperatura(tempMinDia);
-    tempMaxEl.className = "tempMax " + claseTemperatura(tempMaxDia);
+    if(tempMinEl) tempMinEl.textContent = "Mínima diaria: "+(tempMinDia !== null ? tempMinDia.toFixed(1)+"°" : "--");
+    if(tempMaxEl) tempMaxEl.textContent = "Máxima diaria: "+(tempMaxDia !== null ? tempMaxDia.toFixed(1)+"°" : "--");
 
     // Humedad
-    document.getElementById("hum").textContent = o.humidity?.value ?? "--";
+    const humEl = document.getElementById("hum");
+    if(humEl) humEl.textContent = o.humidity?.value ?? "--";
 
-    // Viento
+    // Viento y flecha
+    const windEl = document.getElementById("windValue");
+    const windDirEl = document.getElementById("windDirText");
+    const flecha = document.getElementById("flechaViento");
     const windKm = mphToKmh(w.wind_speed?.value);
-    document.getElementById("windValue").textContent = windKm !== "--" ? windKm.toFixed(1)+" km/h" : "--";
-    document.getElementById("windDirText").textContent = "Dirección: "+gradosADireccion(w.wind_direction?.value);
+    if(windEl) windEl.textContent = windKm !== "--" ? windKm.toFixed(1)+" km/h" : "--";
+    if(windDirEl) windDirEl.textContent = "Dirección: "+gradosADireccion(w.wind_direction?.value);
+    if(flecha && w.wind_direction?.value !== undefined){
+      flecha.style.transform = `translate(-50%,-100%) rotate(${w.wind_direction.value}deg)`;
+    }
 
     // Racha máxima
-    const gustKm = mphToKmh(w.wind_gust?.value);
-    document.getElementById("windMax").textContent = "Racha máxima diaria: "+(gustKm !== "--" ? gustKm.toFixed(1)+" km/h" : "--");
+    const windMaxEl = document.getElementById("windMaxBig");
+    if(windMaxEl) windMaxEl.textContent = mphToKmh(w.wind_gust?.value) !== "--" ? mphToKmh(w.wind_gust.value).toFixed(1)+" km/h" : "--";
 
-    // Lluvia
-    const rainMm = inToMm(rain.daily?.value);
-    const rainMonthMm = inToMm(rain.monthly?.value);
-    document.getElementById("rain").textContent = rainMm !== "--" ? rainMm.toFixed(1) : "--";
-    document.getElementById("rainMonth").textContent = rainMonthMm !== "--" ? rainMonthMm.toFixed(1) : "--";
+    // Lluvia diaria, mensual, anual
+    const rainDay = inToMm(rain.daily?.value);
+    const rainMonth = inToMm(rain.monthly?.value);
+    const rainYear = inToMm(rain.yearly?.value);
+
+    const rainEl = document.getElementById("rainValue");
+    const rainMonthEl = document.getElementById("rainMonthValue");
+    const rainYearEl = document.getElementById("rainYearValue");
+    if(rainEl) rainEl.textContent = rainDay !== "--" ? rainDay.toFixed(1)+" mm" : "--";
+    if(rainMonthEl) rainMonthEl.textContent = rainMonth !== "--" ? rainMonth.toFixed(1)+" mm" : "--";
+    if(rainYearEl) rainYearEl.textContent = rainYear !== "--" ? rainYear.toFixed(1)+" mm" : "--";
+
+    // Barras de lluvia (proporcional)
+    const maxRain = Math.max(rainDay||0, rainMonth||0, rainYear||0, 1); // evitar 0
+    const bars = [
+      {bar: document.querySelector(".rainDay .bar"), value: rainDay},
+      {bar: document.querySelector(".rainMonth .bar"), value: rainMonth},
+      {bar: document.querySelector(".rainYear .bar"), value: rainYear}
+    ];
+    bars.forEach(b=>{
+      if(b.bar) b.bar.style.width = `${Math.min((b.value/maxRain)*100,100)}%`;
+    });
 
     // Presión
-    const pres = inHgToHpa(p.relative?.value);
-    document.getElementById("press").textContent = pres !== "--" ? pres.toFixed(1) : "--";
+    const presEl = document.getElementById("press");
+    if(presEl) presEl.textContent = inHgToHpa(p.relative?.value) !== "--" ? inHgToHpa(p.relative.value).toFixed(1) : "--";
 
-    // UV y solar
-    document.getElementById("uv").textContent = uv;
-    document.getElementById("solar").textContent = solar;
+    // UV y Solar
+    const uvEl = document.getElementById("uv");
+    const solarEl = document.getElementById("solar");
+    if(uvEl) uvEl.textContent = uv;
+    if(solarEl) solarEl.textContent = solar;
 
     // Última actualización
-    const now = new Date();
-    document.getElementById("ultimaActualizacion").textContent = "Última actualización: "+now.toLocaleTimeString();
+    const updEl = document.getElementById("ultimaActualizacion");
+    if(updEl) updEl.textContent = "Última actualización: "+new Date().toLocaleTimeString();
 
-  } catch (e) {
+  } catch(e){
     console.error("Error actualizando datos:", e);
   }
 }
 
-// Inicialización
+// Inicialización y actualización cada 2 minutos
 obtenerDatos();
-setInterval(obtenerDatos, 120000); // cada 2 minutos
+setInterval(obtenerDatos, 120000);
