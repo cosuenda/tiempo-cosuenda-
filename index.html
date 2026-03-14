@@ -5,102 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meteo Cosuenda</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="temp-bg">
+
+<body>
 
 <header>
-  <h1>Meteo Cosuenda</h1>
+<h1>🌤️ Meteo Cosuenda</h1>
+<p>Estación Meteorológica Profesional</p>
 </header>
-
-<!-- ALERTAS VISIBLES -->
-<div id="alertaMeteo" class="alerta"></div>
 
 <div class="container">
 
-  <div class="card">
-    <h2>Temperatura</h2>
-    <div id="tempBig" class="bigTemp">--°</div>
-    <p id="sensacion"></p>
-    <p id="tempMin"></p>
-    <p id="tempMax"></p>
-  </div>
+<div class="card">
+<h2>Temperatura</h2>
+<div id="tempBig" class="bigTemp">--</div>
+<div id="sensacion">Sensación térmica: --</div>
+<div id="tempMin">Mínima diaria: --</div>
+<div id="tempMax">Máxima diaria: --</div>
+</div>
 
-  <div class="card">
-    <h2>Humedad</h2>
-    <div id="hum" class="bigNumber">--</div>
-  </div>
+<div class="card">
+<h2>Humedad</h2>
+<div id="hum" class="bigNumber">--</div>
+</div>
 
-  <div class="card">
-    <h2>Viento</h2>
-    <div class="rosa">
-      <div class="cardinal norte">N</div>
-      <div class="cardinal noreste">NE</div>
-      <div class="cardinal este">E</div>
-      <div class="cardinal sureste">SE</div>
-      <div class="cardinal sur">S</div>
-      <div class="cardinal suroeste">SW</div>
-      <div class="cardinal oeste">W</div>
-      <div class="cardinal noroeste">NW</div>
-      <div id="flechaViento" class="flecha"></div>
-    </div>
-    <div id="windValue" class="bigNumber">-- km/h</div>
-    <p id="windDirText"></p>
-  </div>
+<div class="card">
+<h2>Viento (km/h)</h2>
 
-  <div class="card">
-    <h2>Racha máxima</h2>
-    <div id="windMaxBig" class="bigNumber">-- km/h</div>
-  </div>
+<div id="windValue" class="bigNumber">--</div>
+<div id="windMax">Racha máxima diaria: --</div>
+<div id="windDirText">Dirección: --</div>
 
-  <div class="card rainCard">
-    <h2>Lluvia</h2>
-    <div class="rainBars">
-      <div class="rainDay">
-        <span>Hoy</span>
-        <div class="bar" id="rain"></div>
-        <span class="value" id="rainValue">-- mm</span>
-      </div>
-      <div class="rainMonth">
-        <span>Mes</span>
-        <div class="bar" id="rainMonth"></div>
-        <span class="value" id="rainMonthValue">-- mm</span>
-      </div>
-      <div class="rainYear">
-        <span>Año</span>
-        <div class="bar" id="rainYear"></div>
-        <span class="value" id="rainYearValue">-- mm</span>
-      </div>
-    </div>
-  </div>
+<div class="rosa">
 
-  <div class="card">
-    <h2>Presión</h2>
-    <div id="press" class="bigNumber">--</div>
-  </div>
+  <div class="cardinal norte">N</div>
+  <div class="cardinal noreste">NE</div>
+  <div class="cardinal este">E</div>
+  <div class="cardinal sureste">SE</div>
+  <div class="cardinal sur">S</div>
+  <div class="cardinal suroeste">SW</div>
+  <div class="cardinal oeste">W</div>
+  <div class="cardinal noroeste">NW</div>
 
-  <div class="card">
-    <h2>Radiación</h2>
-    <p>UV: <span id="uv"></span></p>
-    <p>Solar: <span id="solar"></span></p>
-  </div>
+  <div id="flechaViento" class="flecha"></div>
 
-  <div class="card grafCard">
-    <h2>Temperatura últimas horas</h2>
-    <canvas id="grafTemp"></canvas>
-  </div>
+</div>
 
-  <div class="card radarCard">
-    <h2>Radar lluvia</h2>
-    <div class="radarBox">
-      <iframe
-        src="https://www.rainviewer.com/map.html?loc=41.36,-1.30,8&oFa=1&oC=1&oU=1&oCS=1&oF=1&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&marker=41.36,-1.30"
-      ></iframe>
-    </div>
-  </div>
+</div>
 
-  <div id="ultimaActualizacion"></div>
+<div class="card">
+<h2>Lluvia</h2>
+<div class="rainBox">
+<div>
+<span class="rainLabel">Hoy</span>
+<div id="rain" class="bigNumber">--</div>
+</div>
+<div>
+<span class="rainLabel">Mensual</span>
+<div id="rainMonth" class="bigNumber">--</div>
+</div>
+</div>
+</div>
 
+<div class="card">
+<h2>Presión</h2>
+<div id="press" class="bigNumber">--</div>
+</div>
+
+<div class="card">
+<h2>Índice UV</h2>
+<div id="uv" class="bigNumber">--</div>
+</div>
+
+<div class="card">
+<h2>Radiación Solar</h2>
+<div id="solar" class="bigNumber">--</div>
+</div>
+
+</div>
+
+<div id="ultimaActualizacion">
+Última actualización: --
 </div>
 
 <script src="script.js"></script>
