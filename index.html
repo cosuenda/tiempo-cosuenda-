@@ -4,90 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meteo Cosuenda</title>
+
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
 <header>
-  <h1>🌤️ Meteo Cosuenda</h1>
-  <p>Estación Meteorológica Profesional</p>
+<h1>🌤️ Meteo Cosuenda</h1>
+<p>Estación Meteorológica Profesional</p>
 </header>
+
+<div id="alertaMeteo" class="alerta"></div>
 
 <div class="container">
 
-  <div class="card">
-    <h2>Temperatura</h2>
-    <div id="tempBig" class="bigTemp">--</div>
-    <div id="sensacion">Sensación térmica: --</div>
-    <div id="tempMin">Mínima diaria: --</div>
-    <div id="tempMax">Máxima diaria: --</div>
-  </div>
+<!-- TEMPERATURA -->
 
-  <div class="card">
-    <h2>Humedad</h2>
-    <div id="hum" class="bigNumber">--</div>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <h2>Viento (km/h)</h2>
-    <div id="windValue" class="bigNumber">--</div>
-    <div id="windMaxBig">--</div>
-    <div id="windDirText">Dirección: --</div>
+<h2>Temperatura</h2>
 
-    <div class="rosa">
-      <div id="flechaViento" class="flecha"></div>
-    </div>
-  </div>
+<div id="tempBig" class="bigTemp">--</div>
 
-  <div class="card">
-    <h2>Lluvia</h2>
+<div id="sensacion">Sensación térmica: --</div>
 
-    <div>
-      Hoy
-      <div id="rainValue" class="bigNumber">--</div>
-      <div class="rainBars">
-        <div id="rain" class="bar"></div>
-      </div>
-    </div>
+<div id="tempMin">Mínima diaria: --</div>
 
-    <div>
-      Mes
-      <div id="rainMonthValue" class="bigNumber">--</div>
-      <div class="rainBars">
-        <div id="rainMonth" class="bar"></div>
-      </div>
-    </div>
+<div id="tempMax">Máxima diaria: --</div>
 
-    <div>
-      Año
-      <div id="rainYearValue" class="bigNumber">--</div>
-      <div class="rainBars">
-        <div id="rainYear" class="bar"></div>
-      </div>
-    </div>
+</div>
 
-  </div>
+<!-- HUMEDAD -->
 
-  <div class="card">
-    <h2>Presión</h2>
-    <div id="press" class="bigNumber">--</div>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <h2>Índice UV</h2>
-    <div id="uv" class="bigNumber">--</div>
-  </div>
+<h2>Humedad</h2>
 
-  <div class="card">
-    <h2>Radiación Solar</h2>
-    <div id="solar" class="bigNumber">--</div>
-  </div>
+<div id="hum" class="bigNumber">--</div>
+
+</div>
+
+<!-- VIENTO -->
+
+<div class="card">
+
+<h2>Viento</h2>
+
+<div id="windValue" class="bigNumber">--</div>
+
+<div id="windMaxBig">--</div>
+
+<div id="windDirText">Dirección --</div>
+
+<div class="rosa">
+
+<div class="cardinal norte">N</div>
+<div class="cardinal noreste">NE</div>
+<div class="cardinal este">E</div>
+<div class="cardinal sureste">SE</div>
+<div class="cardinal sur">S</div>
+<div class="cardinal suroeste">SW</div>
+<div class="cardinal oeste">W</div>
+<div class="cardinal noroeste">NW</div>
+
+<div id="flechaViento" class="flecha"></div>
+
+</div>
+
+</div>
+
+<!-- LLUVIA -->
+
+<div class="card">
+
+<h2>Lluvia</h2>
+
+Hoy
+<div id="rainValue">--</div>
+<div class="rainBars">
+<div id="rain" class="bar"></div>
+</div>
+
+Mes
+<div id="rainMonthValue">--</div>
+<div class="rainBars">
+<div id="rainMonth" class="bar"></div>
+</div>
+
+Año
+<div id="rainYearValue">--</div>
+<div class="rainBars">
+<div id="rainYear" class="bar"></div>
+</div>
+
+</div>
+
+<!-- PRESION -->
+
+<div class="card">
+
+<h2>Presión</h2>
+
+<div id="press" class="bigNumber">--</div>
+
+</div>
+
+<!-- UV -->
+
+<div class="card">
+
+<h2>Índice UV</h2>
+
+<div id="uv" class="bigNumber">--</div>
+
+</div>
+
+<!-- SOLAR -->
+
+<div class="card">
+
+<h2>Radiación solar</h2>
+
+<div id="solar" class="bigNumber">--</div>
+
+</div>
+
+<!-- GRAFICA -->
+
+<div class="card">
+
+<h2>Temperatura últimas horas</h2>
+
+<canvas id="grafTemp"></canvas>
+
+</div>
 
 </div>
 
 <div id="ultimaActualizacion">
-  Última actualización: --
+
+Última actualización --
+
 </div>
 
 <script src="script.js"></script>
