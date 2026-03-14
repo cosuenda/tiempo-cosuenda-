@@ -52,7 +52,6 @@
     <div id="windMaxBig" class="bigNumber">-- km/h</div>
   </div>
 
-  <!-- TARJETA LLUVIA VISUAL -->
   <div class="card rainCard">
     <h2>Lluvia</h2>
     <div class="rainBars">
@@ -79,10 +78,10 @@
     <div id="press" class="bigNumber">--</div>
   </div>
 
-  <div class="card">
+  <div class="card uvCard">
     <h2>Radiación</h2>
-    <p>UV: <span id="uv"></span></p>
-    <p>Solar: <span id="solar"></span></p>
+    <p>UV: <span id="uv">--</span></p>
+    <p>Solar: <span id="solar">--</span></p>
   </div>
 
   <div class="card grafCard">
@@ -104,7 +103,6 @@
 </div>
 
 <script src="script.js"></script>
-
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
