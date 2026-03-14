@@ -1,147 +1,58 @@
-/* ===========================
-   ESTILOS GENERALES
-=========================== */
-body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #1e3c72, #2a5298);
-    text-align:center;
-    color:white;
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom,#1e3c72,#2a5298);
+  color:white;
+  text-align:center;
+  transition:background 2s ease;
 }
 
 header{
-    padding:20px;
-    background:#001f3f;
+  padding:20px;
+  background:#001f3f;
 }
 
 .container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
 }
 
 .card{
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.4);
-    transition: all 0.8s ease;
+  background: rgba(0,0,0,0.5);
+  padding: 15px;
+  border-radius: 15px;
+  width: 200px;
+  min-height: 120px;
 }
 
-/* ===========================
-   NÚMEROS IMPORTANTES CON NEÓN
-=========================== */
 .bigTemp{
-    font-size:70px;
-    font-weight:bold;
-    color:#ffffff;
-    text-shadow:
-        0 0 5px #00f2ff,
-        0 0 10px #00f2ff,
-        0 0 20px #00f2ff,
-        0 0 40px rgba(0,242,255,0.4);
-    transition: all 0.8s ease;
+  font-size: 48px;
+  font-weight: bold;
 }
 
 .bigNumber{
-    font-size:40px;
-    font-weight:bold;
-    color:#ffffff;
-    text-shadow:
-        0 0 3px #00f2ff,
-        0 0 6px #00f2ff,
-        0 0 10px rgba(0,242,255,0.3);
-    transition: all 0.8s ease;
+  font-size: 36px;
+  font-weight: bold;
 }
 
-/* ===========================
-   LLUVIA Y ETIQUETAS
-=========================== */
 .rainBox{
-    display:flex;
-    justify-content:space-around;
-}
-
-.rainLabel{
-    font-size:14px;
-    opacity:0.8;
-}
-
-/* ===========================
-   ROSA DE LOS VIENTOS
-=========================== */
-.rosa{
-    position:relative;
-    width:180px;
-    height:180px;
-    border:3px solid white;
-    border-radius:50%;
-    margin:20px auto 0 auto;
-    background: radial-gradient(circle at center, #ffffff 60%, #cce6ff 100%);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-}
-
-.flecha{
-    position:absolute;
-    width:6px;
-    height:70px;
-    background:#003366;
-    bottom:50%;
-    left:50%;
-    transform-origin:bottom center;
-    transform:translateX(-50%) rotate(0deg);
-    border-radius:3px;
-    transition: transform 0.8s ease;
+  display: flex;
+  justify-content: space-around;
 }
 
 .cardinal{
-    position:absolute;
-    font-size:14px;
-    font-weight:bold;
-    color:#003366;
-    transform:translate(-50%,-50%);
+  position: absolute;
+  font-weight: bold;
 }
 
-.norte{ top:0%; left:50%; }
-.sur{ bottom:0%; left:50%; }
-.este{ top:50%; right:0%; transform:translate(50%,-50%); }
-.oeste{ top:50%; left:0%; transform:translate(-50%,-50%); }
-
-.noreste{ top:15%; right:15%; }
-.sureste{ bottom:15%; right:15%; }
-.suroeste{ bottom:15%; left:15%; }
-.noroeste{ top:15%; left:15%; }
-
-/* ===========================
-   ÚLTIMA ACTUALIZACIÓN
-=========================== */
-#ultimaActualizacion{
-    margin:20px;
-    font-size:14px;
-    opacity:0.8;
-    transition: all 0.8s ease;
+#flechaViento{
+  width:0; 
+  height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-bottom:20px solid red;
+  margin:auto;
 }
-
-/* ===========================
-   COLORES DINÁMICOS
-=========================== */
-.bigTemp[data-value]{
-    color: #00ffff; /* JS actualizará según temperatura */
-}
-
-#uv[data-value]{
-    color:#00ff00; /* JS actualizará según índice UV */
-}
-
-#hum[data-value],
-#windValue[data-value],
-#rain[data-value]{
-    color:#00ffff; /* efecto neón sutil para humedad, viento y lluvia */
-}
-
-
-
