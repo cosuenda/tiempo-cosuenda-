@@ -172,3 +172,7 @@ background:#003366;border-radius:50%;transform:translateX(-50%);
 .rosa{width:150px;height:150px;}
 .radarBox iframe{height:450px;}
 }
+.temp-cold { background: linear-gradient(#1e3c72,#2a5298); }
+.temp-normal { background: linear-gradient(#11998e,#38ef7d); }
+.temp-warm { background: linear-gradient(#f7971e,#ffd200); }
+.temp-hot { background: linear-gradient(#cb2d3e,#ef473a); }
